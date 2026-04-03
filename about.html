@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | Red Creative — Printing & Signage Maldives</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E53935;--red-dark:#C62828;--red-light:#FFEBEE;--dark:#0A0A0A;--dark2:#141414;--dark3:#1E1E1E;--gray:#777;--gray-light:#F7F7F7;--white:#fff}
+body{font-family:'Inter',sans-serif;background:var(--white);color:#111;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--red);border-radius:9px}
+
+/* ========== NAV ========== */
+#nav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;justify-content:space-between;padding:.6rem 5%;height:62px;background:transparent;transition:all .5s cubic-bezier(.4,0,.2,1)}
+#nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;transition:all .4s;z-index:2}
+#nav.scrolled .nav-logo{color:#111}
+.nav-logo img{height:38px;width:38px;object-fit:contain;filter:brightness(0) invert(1);transition:filter .4s}
+#nav.scrolled .nav-logo img{filter:none}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.1}
+.nav-logo-text small{display:block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;font-weight:400;font-family:'Inter',sans-serif}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{text-decoration:none;color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .3s}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+#nav.scrolled .nav-link{color:#555}
+#nav.scrolled .nav-link:hover{color:#111;background:rgba(0,0,0,.04)}
+.nav-link.active-link{color:var(--red)!important;background:rgba(229,57,53,.08)!important}
+#nav.scrolled .nav-link.active-link{background:var(--red-light)!important}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:9px 22px!important;border-radius:20px!important;font-weight:600!important;box-shadow:0 4px 18px rgba(229,57,53,.3);text-decoration:none;transition:all .3s!important}
+.nav-cta:hover{background:var(--red-dark)!important;transform:translateY(-1px);box-shadow:0 8px 25px rgba(229,57,53,.4)}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:2;position:relative;width:40px;height:40px;align-items:center;justify-content:center}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;position:relative;transition:all .35s cubic-bezier(.4,0,.2,1);border-radius:2px}
+.mob-btn span::before,.mob-btn span::after{content:'';position:absolute;left:0;width:100%;height:100%;background:#fff;border-radius:2px;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.mob-btn span::before{top:-7px}
+.mob-btn span::after{top:7px}
+#nav.scrolled .mob-btn span,#nav.scrolled .mob-btn span::before,#nav.scrolled .mob-btn span::after{background:#111}
+.mob-btn.active span{background:transparent}
+.mob-btn.active span::before{top:0;transform:rotate(45deg);background:#111}
+.mob-btn.active span::after{top:0;transform:rotate(-45deg);background:#111}
+#mobMenu{position:fixed;inset:0;z-index:8999;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+#mobMenu.open{opacity:1;pointer-events:auto}
+#mobPanel{position:absolute;top:0;right:0;width:min(320px,88vw);height:100%;background:#fff;padding:0;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+#mobMenu.open #mobPanel{transform:translateX(0)}
+.mob-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.mob-header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#111}
+.mob-header-logo img{height:32px;object-fit:contain}
+.mob-header-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+.mob-close{background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mob-close:hover{background:#f5f5f5;color:#111}
+.mob-body{flex:1;padding:8px 12px;overflow-y:auto}
+.mob-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#333;font-size:15px;font-weight:500;padding:14px 12px;border-radius:12px;transition:all .2s;margin-bottom:2px}
+.mob-link:hover{color:var(--red);background:var(--red-light)}
+.mob-link.active-link{color:var(--red);background:var(--red-light);font-weight:600}
+.mob-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.mob-link.active-link svg{opacity:1}
+.mob-divider{height:1px;background:#f0f0f0;margin:8px 12px}
+.mob-footer{padding:16px 12px;border-top:1px solid #f0f0f0;flex-shrink:0}
+.mob-link-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff!important;text-align:center;padding:14px;border-radius:14px;font-weight:600;text-decoration:none;font-size:15px;transition:all .3s;box-shadow:0 4px 16px rgba(229,57,53,.25)}
+.mob-link-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
+.mob-link-cta svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;opacity:1}
+.mob-contact-row{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;color:var(--gray);text-decoration:none;border-radius:10px;transition:all .2s;margin-top:4px}
+.mob-contact-row:hover{background:#f8f8f8;color:#333}
+.mob-contact-row svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.5}
+@media(max-width:900px){.nav-links{display:none}.mob-btn{display:flex}}
+
+/* ========== PAGE HERO ========== */
+.page-hero{position:relative;min-height:50vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+.page-hero-media{position:absolute;inset:0;z-index:0}
+.page-hero-media img{width:100%;height:100%;object-fit:cover}
+.page-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 40%,rgba(229,57,53,.12) 100%)}
+.page-hero-content{position:relative;z-index:3;padding:100px 5% 50px}
+.page-hero .label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px;background:rgba(229,57,53,.1);padding:6px 16px;border-radius:20px;border:1px solid rgba(229,57,53,.15)}
+.page-hero h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px}
+.page-hero h1 em{font-style:normal;color:var(--red)}
+.page-hero>p{color:rgba(255,255,255,.4);font-size:15px;max-width:520px;margin:0 auto;line-height:1.7}
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:12px;color:rgba(255,255,255,.3)}
+.breadcrumb a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--red)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+
+/* ========== SECTIONS ========== */
+.section{padding:clamp(40px,7vw,110px) 5%}
+.section-gray{background:var(--gray-light)}
+.section-dark{background:var(--dark)}
+.section-header{text-align:center;margin-bottom:clamp(32px,5vw,64px)}
+.section-header .label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.section-header h2{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;line-height:1.15}
+.section-header h2 em{font-style:normal;color:var(--red)}
+.section-header p{color:var(--gray);font-size:14px;max-width:520px;margin:12px auto 0;line-height:1.7}
+.red-line{width:50px;height:3px;background:var(--red);border-radius:2px;margin:12px auto 0}
+
+/* ========== OUR STORY ========== */
+.story-grid{display:grid;grid-template-columns:1fr;gap:0;border-radius:24px;overflow:hidden;background:#fff;border:1.5px solid #eee;box-shadow:0 4px 30px rgba(0,0,0,.04)}
+@media(min-width:768px){.story-grid{grid-template-columns:1fr 1.1fr}}
+.story-img{position:relative;overflow:hidden;min-height:320px}
+.story-img img{width:100%;height:100%;object-fit:cover;display:block}
+.story-img-badge{position:absolute;bottom:20px;left:20px;z-index:2;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);color:#fff;padding:12px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.1)}
+.story-img-badge .sib-year{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--red);line-height:1}
+.story-img-badge .sib-text{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em}
+.story-body{padding:clamp(28px,5vw,48px);display:flex;flex-direction:column;justify-content:center}
+.story-body h3{font-size:clamp(20px,3vw,28px);font-weight:700;line-height:1.2;margin-bottom:6px}
+.story-body .story-sub{font-size:14px;color:var(--red);font-weight:600;margin-bottom:16px}
+.story-body p{font-size:14px;color:var(--gray);line-height:1.8;margin-bottom:14px}
+.story-highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.story-hl{display:flex;align-items:center;gap:10px;padding:12px;background:var(--gray-light);border-radius:12px}
+.story-hl-icon{width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.story-hl h4{font-size:12px;font-weight:700;color:#111;line-height:1.2}
+.story-hl p{font-size:10px;color:var(--gray);margin-bottom:0;line-height:1.4}
+
+/* ========== STATS ========== */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.stats-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.stat-card{text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:clamp(18px,3vw,32px);transition:all .4s}
+.stat-card:hover{background:rgba(255,255,255,.07);border-color:rgba(229,57,53,.2);transform:translateY(-4px)}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:700;color:#fff;line-height:1}
+.stat-num span{color:var(--red)}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.12em;margin-top:6px}
+
+/* ========== TIMELINE ========== */
+.timeline{position:relative;max-width:700px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),rgba(229,57,53,.1));border-radius:2px}
+@media(min-width:640px){.timeline::before{left:50%;transform:translateX(-1px)}}
+.tl-item{position:relative;padding-left:56px;margin-bottom:32px}
+@media(min-width:640px){.tl-item{padding-left:0;padding-right:0;width:50%;margin-left:0}.tl-item:nth-child(odd){margin-left:50%;padding-left:32px}.tl-item:nth-child(even){padding-right:32px;text-align:right}}
+.tl-dot{position:absolute;left:12px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--red);border:3px solid var(--dark);z-index:2;box-shadow:0 0 0 4px rgba(229,57,53,.15)}
+@media(min-width:640px){.tl-item:nth-child(odd) .tl-dot{left:auto;right:-9px}.tl-item:nth-child(even) .tl-dot{left:-9px}}
+.tl-year{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;color:var(--red);margin-bottom:4px}
+.tl-item h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.tl-item p{font-size:13px;color:var(--gray);line-height:1.7}
+
+/* ========== MISSION VISION VALUES ========== */
+.mvv-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:768px){.mvv-grid{grid-template-columns:repeat(3,1fr)}}
+.mvv-card{position:relative;border-radius:20px;overflow:hidden;min-height:280px;cursor:default}
+.mvv-card img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.mvv-overlay{position:absolute;inset:0;z-index:1;transition:background .4s}
+.mvv-card:nth-child(1) .mvv-overlay{background:linear-gradient(to top,rgba(229,57,53,.92) 0%,rgba(229,57,53,.7) 100%)}
+.mvv-card:nth-child(2) .mvv-overlay{background:linear-gradient(to top,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 100%)}
+.mvv-card:nth-child(3) .mvv-overlay{background:linear-gradient(to top,rgba(229,57,53,.92) 0%,rgba(198,40,40,.7) 100%)}
+.mvv-card:hover .mvv-overlay{background:linear-gradient(to top,rgba(229,57,53,.95) 0%,rgba(229,57,53,.8) 100%)}
+.mvv-card:nth-child(2):hover .mvv-overlay{background:linear-gradient(to top,rgba(10,10,10,.95) 0%,rgba(10,10,10,.8) 100%)}
+.mvv-content{position:relative;z-index:2;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.mvv-icon{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:22px}
+.mvv-content h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.mvv-content p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.8}
+
+/* ========== WHY DIFFERENT ========== */
+.diff-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.diff-grid{grid-template-columns:1fr 1fr;gap:14px}}
+.diff-card{border-radius:18px;overflow:hidden;position:relative;min-height:220px;cursor:default}
+.diff-card img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;transition:transform .6s}
+.diff-card:hover img{transform:scale(1.05)}
+.diff-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 60%);z-index:1}
+.diff-content{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.diff-tag{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.diff-content h3{color:#fff;font-size:17px;font-weight:700;margin-bottom:4px}
+.diff-content p{color:rgba(255,255,255,.4);font-size:12px;line-height:1.6}
+.diff-wide{grid-column:1/-1;min-height:200px}
+@media(min-width:640px){.diff-wide{min-height:220px}}
+
+/* ========== TEAM PREVIEW ========== */
+.team-preview-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.team-preview-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+@media(min-width:900px){.team-preview-grid{grid-template-columns:repeat(6,1fr);gap:14px}}
+.team-prev-card{text-align:center;transition:all .4s}
+.team-prev-card:hover{transform:translateY(-4px)}
+.team-prev-card img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #eee;margin:0 auto 8px;display:block;transition:border-color .3s}
+.team-prev-card:hover img{border-color:var(--red)}
+.team-prev-card h4{font-size:12px;font-weight:700;margin-bottom:2px}
+.team-prev-card p{font-size:10px;color:var(--red);font-weight:600}
+
+/* ========== TECH SECTION ========== */
+.tech-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.tech-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.tech-grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+.tech-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:all .4s}
+.tech-card:hover{background:rgba(255,255,255,.07);border-color:rgba(229,57,53,.15);transform:translateY(-4px)}
+.tech-card .tech-emoji{font-size:32px;margin-bottom:12px;display:block}
+.tech-card h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:6px}
+.tech-card p{color:rgba(255,255,255,.35);font-size:12px;line-height:1.6}
+.tech-card .tech-badge{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(229,57,53,.1);padding:4px 12px;border-radius:6px}
+
+/* ========== SUSTAINABILITY ========== */
+.sustain-grid{display:grid;grid-template-columns:1fr;gap:0;border-radius:24px;overflow:hidden;background:#fff;border:1.5px solid #eee;box-shadow:0 4px 30px rgba(0,0,0,.04)}
+@media(min-width:768px){.sustain-grid{grid-template-columns:1fr 1fr}}
+.sustain-img{position:relative;overflow:hidden;min-height:300px}
+.sustain-img img{width:100%;height:100%;object-fit:cover;display:block}
+.sustain-body{padding:clamp(28px,5vw,48px);display:flex;flex-direction:column;justify-content:center}
+.sustain-body h3{font-size:clamp(20px,3vw,26px);font-weight:700;line-height:1.2;margin-bottom:14px}
+.sustain-body .sustain-sub{font-size:14px;color:var(--red);font-weight:600;margin-bottom:10px}
+.sustain-list{list-style:none;padding:0}
+.sustain-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#555;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.sustain-list li:last-child{border-bottom:none}
+.sustain-list li svg{width:16px;height:16px;stroke:var(--red);stroke-width:2.5;fill:none;flex-shrink:0;margin-top:2px;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== TESTIMONIALS ========== */
+.test-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.test-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.test-grid{grid-template-columns:repeat(3,1fr)}}
+.test-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:24px;transition:all .4s}
+.test-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1)}
+.test-stars{color:#FFD600;font-size:13px;margin-bottom:14px;letter-spacing:2px}
+.test-text{color:rgba(255,255,255,.4);font-size:13px;line-height:1.8;margin-bottom:18px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.1)}
+.test-name{color:#fff;font-size:13px;font-weight:600}
+.test-role{color:rgba(255,255,255,.3);font-size:11px}
+
+/* ========== FAQ ========== */
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:all .3s}
+.faq-item:hover{border-color:rgba(255,255,255,.1)}
+.faq-item.active{border-color:rgba(229,57,53,.2);background:rgba(229,57,53,.03)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;gap:12px}
+.faq-q h4{font-size:14px;font-weight:600;color:#fff;flex:1}
+.faq-q-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px;color:rgba(255,255,255,.4)}
+.faq-item.active .faq-q-icon{background:var(--red);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.faq-a-inner{padding:0 20px 18px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.8}
+
+/* ========== CTA ========== */
+.cta-section{background:var(--red);position:relative;overflow:hidden;padding:clamp(50px,8vw,100px) 5%;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:20px 20px}
+.cta-section h2{color:#fff;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;margin-bottom:14px;position:relative}
+.cta-section p{color:rgba(255,255,255,.7);font-size:14px;max-width:480px;margin:0 auto 28px;position:relative;line-height:1.7}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--red);text-decoration:none;padding:15px 30px;border-radius:14px;font-size:14px;font-weight:700;transition:all .3s;position:relative}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;text-decoration:none;padding:14px 26px;border-radius:14px;font-size:13px;font-weight:600;transition:all .3s;box-shadow:0 6px 20px rgba(0,0,0,.1);width:fit-content}
+.btn-dark:hover{background:var(--red);transform:translateY(-2px);box-shadow:0 10px 30px rgba(229,57,53,.25)}
+.btn-dark svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== FOOTER ========== */
+footer{background:var(--dark);color:#fff;padding:clamp(36px,4vw,60px) 5% 18px}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-logo img{height:30px;filter:brightness(0) invert(1)}
+.footer-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+footer p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7}
+footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;color:rgba(255,255,255,.6)}
+footer ul{list-style:none}footer ul li{margin-bottom:6px}
+footer ul a{color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:color .2s}
+footer ul a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.footer-bottom p{font-size:11px}
+.footer-social{display:flex;gap:6px}
+.footer-social a{width:32px;height:32px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:all .3s}
+.footer-social a:hover{background:var(--red);color:#fff}
+
+/* ========== WHATSAPP ========== */
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:8000;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .3s;text-decoration:none;color:#fff}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float::before{content:'';position:absolute;inset:-5px;border-radius:50%;background:#25D366;animation:waP 2s ease-out infinite;z-index:-1}
+@keyframes waP{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+
+/* ========== QUOTE MODAL ========== */
+#qModal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:16px}
+#qModal.open{display:flex}
+#qModalBg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+#qModalBox{position:relative;background:#fff;border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:clamp(20px,4vw,32px);box-shadow:0 25px 60px rgba(0,0,0,.2);animation:mIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.q-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.q-close:hover{background:#f5f5f5;color:#333}
+.qf-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:480px){.qf-row.two{grid-template-columns:1fr 1fr}}
+.qf-row label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#444}
+.qf-row input,.qf-row textarea,.qf-row select{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:12px;font-size:13px;font-family:'Inter',sans-serif;background:#fafafa;outline:none;transition:all .3s}
+.qf-row input:focus,.qf-row textarea:focus,.qf-row select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(229,57,53,.06)}
+.qf-row textarea{resize:none;height:80px}
+.qf-row select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.platform-label{font-size:12px;font-weight:600;color:#444;margin-bottom:8px;display:block}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.platform-option{position:relative;cursor:pointer}
+.platform-option input{position:absolute;opacity:0;pointer-events:none}
+.platform-option-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border:2px solid #e8e8e8;border-radius:14px;transition:all .3s;text-align:center;background:#fafafa}
+.platform-option-card:hover{border-color:#ccc;background:#fff}
+.platform-option input:checked+.platform-option-card{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 4px rgba(229,57,53,.08)}
+.platform-option-card .p-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s}
+.platform-option input:checked+.platform-option-card .p-icon{transform:scale(1.1)}
+.p-icon.wa{background:#E8F5E9;color:#25D366}
+.p-icon.vb{background:#F3E5F5;color:#7360F2}
+.p-icon.em{background:#FFF3E0;color:#F57C00}
+.platform-option-card .p-name{font-size:11px;font-weight:700;color:#333}
+.platform-option-card .p-desc{font-size:9px;color:var(--gray);line-height:1.4}
+.platform-option input:checked+.platform-option-card .p-name{color:var(--red)}
+.qf-submit{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 8px 24px rgba(229,57,53,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.qf-submit:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 12px 35px rgba(229,57,53,.35)}
+.qf-submit svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.qf-note{font-size:11px;color:#999;margin-top:10px;text-align:center;line-height:1.6}
+
+/* ========== BACK TO TOP ========== */
+#btt{position:fixed;bottom:20px;left:20px;z-index:8000;width:42px;height:42px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;border:none;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+#btt.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#btt:hover{background:var(--red)}
+
+/* ========== OBSERVE ========== */
+.obs{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.obs.visible{opacity:1;transform:translateY(0)}
+.obs-delay-1{transition-delay:.1s}
+.obs-delay-2{transition-delay:.2s}
+.obs-delay-3{transition-delay:.3s}
+.obs-delay-4{transition-delay:.4s}
+.obs-delay-5{transition-delay:.5s}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav id="nav" class="scrolled">
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="RC"><div class="nav-logo-text">Red Creative<small>Maldives</small></div></a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="about.html" class="nav-link active-link">About</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="#" class="nav-link nav-cta" onclick="openQuote();return false">Get Quote</a>
+    </div>
+    <button class="mob-btn" id="mobBtn" onclick="toggleMob()"><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobMenu" onclick="closeMob()">
+    <div id="mobPanel" onclick="event.stopPropagation()">
+        <div class="mob-header">
+            <a href="index.html" class="mob-header-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></a>
+            <button class="mob-close" onclick="closeMob()">✕</button>
+        </div>
+        <div class="mob-body">
+            <a href="index.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+            <a href="services.html" class="mob-link"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Services</a>
+            <a href="about.html" class="mob-link active-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About Us</a>
+            <a href="portfolio.html" class="mob-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Portfolio</a>
+            <a href="team.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Our Team</a>
+            <a href="contact.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Contact</a>
+            <div class="mob-divider"></div>
+            <a href="tel:+960XXXXXXXX" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+960 XXXX XXXX</a>
+            <a href="mailto:info@redcreative.mv" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@redcreative.mv</a>
+        </div>
+        <div class="mob-footer">
+            <a href="#" class="mob-link-cta" onclick="openQuote();closeMob();return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get a Quote</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-media"><img src="https://picsum.photos/seed/redcreative-about-hero/1920/900" alt="About Hero"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="label">Our Story</div>
+        <h1>About <em>Red Creative</em></h1>
+        <p>From a small print shop to the Maldives' most advanced printing and fabrication facility — here's how we got here.</p>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a><span>/</span><span style="color:rgba(255,255,255,.55)">About</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== OUR STORY ========== -->
+<section class="section">
+    <div class="story-grid obs" style="max-width:960px;margin:0 auto">
+        <div class="story-img">
+            <img src="https://picsum.photos/seed/about-workshop-interior/800/700" alt="Our Workshop">
+            <div class="story-img-badge">
+                <div class="sib-year">2018</div>
+                <div class="sib-text">Year Founded</div>
+            </div>
+        </div>
+        <div class="story-body">
+            <h3>Building the Future of Print in the Maldives</h3>
+            <div class="story-sub">Founded by Hassan Zahir in Hulhumalé</div>
+            <p>Red Creative started with a simple belief: the Maldives deserves world-class printing and fabrication services without having to look overseas. What began as a small print shop with two machines has grown into the country's most comprehensive printing, signage, and 3D fabrication facility.</p>
+            <p>Today, with 25+ team members, cutting-edge equipment, and over 5,000 completed projects, we serve everyone from local businesses to international resort chains — all from our Hulhumalé headquarters.</p>
+            <div class="story-highlights">
+                <div class="story-hl">
+                    <div class="story-hl-icon">🎯</div>
+                    <div><h4>Precision</h4><p>Every project meets exacting standards</p></div>
+                </div>
+                <div class="story-hl">
+                    <div class="story-hl-icon">🚀</div>
+                    <div><h4>Innovation</h4><p>Latest tech, always evolving</p></div>
+                </div>
+                <div class="story-hl">
+                    <div class="story-hl-icon">🤝</div>
+                    <div><h4>Partnership</h4><p>Long-term client relationships</p></div>
+                </div>
+                <div class="story-hl">
+                    <div class="story-hl-icon">🏝️</div>
+                    <div><h4>Nationwide</h4><p>Delivery to every atoll</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== STATS ========== -->
+<section class="section section-dark" style="padding-bottom:clamp(30px,4vw,50px)">
+    <div class="stats-grid obs">
+        <div class="stat-card"><div class="stat-num">7<span>+</span></div><div class="stat-lbl">Years in Business</div></div>
+        <div class="stat-card"><div class="stat-num">5000<span>+</span></div><div class="stat-lbl">Projects Completed</div></div>
+        <div class="stat-card"><div class="stat-num">1000<span>+</span></div><div class="stat-lbl">Clients Served</div></div>
+        <div class="stat-card"><div class="stat-num">26<span>+</span></div><div class="stat-lbl">Atolls Reached</div></div>
+    </div>
+</section>
+
+
+<!-- ========== TIMELINE ========== -->
+<section class="section section-dark" style="padding-top:0">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Our Journey</div>
+        <h2 style="color:#fff">Company <em style="color:var(--red)">Timeline</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="timeline">
+        <div class="tl-item obs">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2018</div>
+            <h4>The Beginning</h4>
+            <p>Red Creative founded in Hulhumalé with 2 printers and a small team of 4. Started with basic sticker and poster printing services.</p>
+        </div>
+        <div class="tl-item obs obs-delay-1">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2019</div>
+            <h4>First Major Client</h4>
+            <p>Secured our first resort signage contract. Invested in large-format printers and hired our first designer. Client count crossed 100.</p>
+        </div>
+        <div class="tl-item obs obs-delay-2">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2020</div>
+            <h4>Resilience Through COVID</h4>
+            <p>Pivoted to safety signage and social distancing materials. Kept the team intact and supported the national pandemic response.</p>
+        </div>
+        <div class="tl-item obs obs-delay-3">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2021</div>
+            <h4>CNC &amp; Laser Added</h4>
+            <p>Expanded into fabrication with CNC router and CO2 laser cutter. Added signboard production capabilities. Team grew to 15.</p>
+        </div>
+        <div class="tl-item obs obs-delay-4">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2022</div>
+            <h4>3D Printing Revolution</h4>
+            <p>Launched the Maldives' most advanced 3D printing facility. Multi-material FDM and resin capabilities put us on the map nationally.</p>
+        </div>
+        <div class="tl-item obs obs-delay-5">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2023</div>
+            <h4>1000 Clients Milestone</h4>
+            <p>Crossed 1,000 clients and 3,000 projects. Expanded workshop to 5,000 sq ft. Started island-wide delivery service.</p>
+        </div>
+        <div class="tl-item obs">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2024</div>
+            <h4>Election Campaign Leader</h4>
+            <p>Became the go-to partner for election campaign materials. Handled 8+ atoll-wide campaigns simultaneously. Team reached 25+.</p>
+        </div>
+        <div class="tl-item obs obs-delay-1">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2025</div>
+            <h4>The Future</h4>
+            <p>5,000+ projects completed. Expanding into UV flatbed printing and exploring new fabrication technologies. The journey continues.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== MISSION VISION VALUES ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">What Drives Us</div>
+        <h2>Mission, Vision &amp; <em>Values</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="mvv-grid">
+        <div class="mvv-card obs">
+            <img src="https://picsum.photos/seed/about-mission-target/600/500" alt="Mission">
+            <div class="mvv-overlay"></div>
+            <div class="mvv-content">
+                <div class="mvv-icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>To provide the Maldives with world-class printing, signage, and fabrication services that are accessible, reliable, and delivered with precision — empowering businesses to communicate their brand with impact.</p>
+            </div>
+        </div>
+        <div class="mvv-card obs obs-delay-1">
+            <img src="https://picsum.photos/seed/about-vision-future-mv/600/500" alt="Vision">
+            <div class="mvv-overlay"></div>
+            <div class="mvv-content">
+                <div class="mvv-icon">🔭</div>
+                <h3>Our Vision</h3>
+                <p>To be the most trusted and technologically advanced printing and fabrication company in the Indian Ocean region — setting the standard for quality, innovation, and customer experience.</p>
+            </div>
+        </div>
+        <div class="mvv-card obs obs-delay-2">
+            <img src="https://picsum.photos/seed/about-values-heart-team/600/500" alt="Values">
+            <div class="mvv-overlay"></div>
+            <div class="mvv-content">
+                <div class="mvv-icon">💎</div>
+                <h3>Our Values</h3>
+                <p>Precision in every detail. Innovation in every process. Partnership with every client. Reliability with every deadline. Integrity in every interaction. These aren't just words — they're how we work daily.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== WHAT MAKES US DIFFERENT ========== -->
+<section class="section section-gray">
+    <div class="section-header obs">
+        <div class="label">Our Edge</div>
+        <h2>What Makes Us <em>Different</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="diff-grid obs">
+        <div class="diff-card">
+            <img src="https://picsum.photos/seed/diff-all-under-one-roof/600/400" alt="End to End">
+            <div class="diff-over"></div>
+            <div class="diff-content"><div class="diff-tag">End-to-End</div><h3>All Under One Roof</h3><p>Design, print, fabricate, install — no subcontracting, no handoffs, full quality control.</p></div>
+        </div>
+        <div class="diff-card">
+            <img src="https://picsum.photos/seed/diff-tech-advanced-3d/600/400" alt="Technology">
+            <div class="diff-over"></div>
+            <div class="diff-content"><div class="diff-tag">Technology</div><h3>National Tech Leader</h3><p>The most advanced 3D printing and fabrication facility in the Maldives.</p></div>
+        </div>
+        <div class="diff-card diff-wide">
+            <img src="https://picsum.photos/seed/diff-island-delivery-wide/1200/300" alt="Island Wide">
+            <div class="diff-over"></div>
+            <div class="diff-content" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
+                <div><div class="diff-tag">Logistics</div><h3>Every Island, Every Atoll</h3><p>Reliable delivery network covering 26+ atolls with express options.</p></div>
+                <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 18px">
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#fff">26<span style="color:var(--red)">+</span></div>
+                    <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em">Atolls Covered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== TEAM PREVIEW ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">The People</div>
+        <h2>Meet the <em>Team</em></h2>
+        <div class="red-line"></div>
+        <p>25+ passionate professionals across 5 departments.</p>
+    </div>
+    <div class="team-preview-grid obs">
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-ceo-founder-man/160/160" alt="CEO"><h4>Hassan Zahir</h4><p>CEO &amp; Founder</p></div>
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-ops-mgr-woman/160/160" alt="Ops"><h4>Fathimath Nisha</h4><p>Operations</p></div>
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-creative-dir-woman/160/160" alt="Design"><h4>Mariyam Dhunya</h4><p>Creative Director</p></div>
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-3d-specialist-man/160/160" alt="3D"><h4>Moosa Adam</h4><p>3D Specialist</p></div>
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-install-lead-man/160/160" alt="Install"><h4>Ismail Naseer</h4><p>Install Lead</p></div>
+        <div class="team-prev-card"><img src="https://picsum.photos/seed/team-prod-mgr-man2/160/160" alt="Production"><h4>Hussain Rafeeq</h4><p>Production</p></div>
+    </div>
+    <div style="text-align:center;margin-top:28px" class="obs">
+        <a href="team.html" class="btn-dark">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            View Full Team →
+        </a>
+    </div>
+</section>
+
+
+<!-- ========== TECHNOLOGY ========== -->
+<section class="section section-dark">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Investment</div>
+        <h2 style="color:#fff">Technology &amp; <em style="color:var(--red)">Equipment</em></h2>
+        <div class="red-line"></div>
+        <p style="color:rgba(255,255,255,.35)">We continuously invest in the latest machinery to stay ahead.</p>
+    </div>
+    <div class="tech-grid">
+        <div class="tech-card obs">
+            <span class="tech-emoji">🖨️</span>
+            <h4>Large-Format Printers</h4>
+            <p>Eco-solvent, UV flatbed, and latex printers for any surface and scale.</p>
+            <span class="tech-badge">3 Machines</span>
+        </div>
+        <div class="tech-card obs obs-delay-1">
+            <span class="tech-emoji">🔷</span>
+            <h4>3D Printer Farm</h4>
+            <p>FDM and resin printers running in parallel for fast production.</p>
+            <span class="tech-badge">Largest in MV</span>
+        </div>
+        <div class="tech-card obs obs-delay-2">
+            <span class="tech-emoji">⚡</span>
+            <h4>CNC Router</h4>
+            <p>Precision 3-axis routing for acrylic, wood, MDF, and composites.</p>
+            <span class="tech-badge">±0.1mm</span>
+        </div>
+        <div class="tech-card obs obs-delay-3">
+            <span class="tech-emoji">✂️</span>
+            <h4>Laser Cutter</h4>
+            <p>CO2 laser for precise cutting and engraving on multiple materials.</p>
+            <span class="tech-badge">60W &amp; 100W</span>
+        </div>
+        <div class="tech-card obs obs-delay-4">
+            <span class="tech-emoji">📐</span>
+            <h4>Laminator</h4>
+            <p>Cold and hot laminators for protective finishes on all prints.</p>
+            <span class="tech-badge">1.6m Wide</span>
+        </div>
+        <div class="tech-card obs obs-delay-5">
+            <span class="tech-emoji">🔧</span>
+            <h4>Full Workshop</h4>
+            <p>Welding, bending, assembly — complete in-house fabrication capability.</p>
+            <span class="tech-badge">5000 sq ft</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== SUSTAINABILITY ========== -->
+<section class="section">
+    <div class="sustain-grid obs" style="max-width:960px;margin:0 auto">
+        <div class="sustain-img">
+            <img src="https://picsum.photos/seed/about-sustainability-ocean-mv/800/600" alt="Sustainability">
+        </div>
+        <div class="sustain-body">
+            <div class="sustain-sub">Our Responsibility</div>
+            <h3>Sustainability &amp; Community</h3>
+            <p>We believe business growth and environmental responsibility go hand in hand — especially in the Maldives.</p>
+            <ul class="sustain-list">
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Eco-solvent inks with low VOC emissions for all indoor printing</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>PLA-based 3D printing materials — biodegradable and plant-based</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Material waste recycling program in our workshop</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Free design support for local NGOs and community events</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Employment and training opportunities for Hulhumalé youth</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Carbon-conscious logistics — consolidated island deliveries</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="section section-dark">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Client Love</div>
+        <h2 style="color:#fff">Trusted by <em style="color:var(--red)">1000+</em> Clients</h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="test-grid">
+        <div class="test-card obs">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"Red Creative has been our sole printing partner for 5 years. Their consistency, quality, and ability to handle rush orders is remarkable. They feel like an extension of our own team."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/about-test-resort-gm/80/80" alt="Client" class="test-avatar">
+                <div><div class="test-name">Ahmed Hassan</div><div class="test-role">GM, Luxury Resort</div></div>
+            </div>
+        </div>
+        <div class="test-card obs obs-delay-1">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"The 3D printing capability they brought to the Maldives is a game-changer. We've prototyped products here that we previously had to send to Sri Lanka or India for."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/about-test-startup-ceo/80/80" alt="Client" class="test-avatar">
+                <div><div class="test-name">Ibrahim Rasheed</div><div class="test-role">CEO, Tech Startup</div></div>
+            </div>
+        </div>
+        <div class="test-card obs obs-delay-2">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"During the last elections, Red Creative managed our entire campaign materials for 6 islands. The coordination, quality, and on-time delivery was exceptional."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/about-test-political/80/80" alt="Client" class="test-avatar">
+                <div><div class="test-name">Mohamed Waheed</div><div class="test-role">Campaign Manager</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section class="section section-dark" style="border-top:1px solid rgba(255,255,255,.04)">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Common Questions</div>
+        <h2 style="color:#fff">About <em style="color:var(--red)">FAQ</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item obs" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Where is Red Creative located?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">We're located in Hulhumalé, Malé Atoll, Maldives. Our workshop is easily accessible from Malé via ferry or road. Walk-ins are welcome during business hours (Sun–Thu, 9AM–6PM).</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-1" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Are you a registered Maldivian business?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Yes, Red Creative is a fully registered business in the Republic of Maldives. We operate under proper business registration, tax compliance, and all required trade licenses.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-2" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>What makes you different from other printers?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Three key things: (1) End-to-end capability — design to installation all in-house, (2) The Maldives' most advanced 3D printing facility, and (3) Island-wide delivery to any atoll. Most printers in Maldives only do one part of the process.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-3" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Do you work with government clients?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Yes. We've worked with multiple government agencies, ministries, and state-owned enterprises on signage, printing, and fabrication projects. We follow all required procurement processes.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-4" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Can I visit the workshop before placing an order?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Absolutely! We encourage visits. You can see our equipment, check material samples, meet the team, and discuss your project in person. Just contact us to arrange a convenient time.</div></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <h2>Ready to Work With Us?</h2>
+    <p>Join 1000+ businesses that trust Red Creative for their printing, signage, and fabrication needs.</p>
+    <a href="#" class="btn-white" onclick="openQuote();return false">Get a Free Quote →</a>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></div>
+            <p>The leading printing and signage solutions provider in the Maldives since 2018. Trusted by 1000+ clients.</p>
+        </div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Canvas Printing</a></li><li><a href="services.html">Sticker &amp; Labels</a></li><li><a href="services.html">Signboards</a></li><li><a href="services.html">3D Printing</a></li><li><a href="services.html">Installation</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li><li><a href="#" onclick="openQuote();return false">Get a Quote</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Red Creative Maldives. All rights reserved.</p>
+        <div class="footer-social"><a href="#" title="Instagram">📷</a><a href="#" title="Facebook">📘</a></div>
+    </div>
+</footer>
+
+
+<!-- ========== QUOTE MODAL ========== -->
+<div id="qModal">
+    <div id="qModalBg" onclick="closeQuote()"></div>
+    <div id="qModalBox">
+        <button class="q-close" onclick="closeQuote()">✕</button>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Request a Quote</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.5">We'll respond within 24 hours via your preferred platform.</p>
+        <form onsubmit="handleQuote(event)">
+            <div class="qf-row two"><div><label>Name *</label><input type="text" id="qName" required placeholder="Your name"></div><div><label>Phone</label><input type="tel" id="qPhone" placeholder="+960 XXXX XXXX"></div></div>
+            <div class="qf-row"><label>Email</label><input type="email" id="qEmail" placeholder="your@email.com"></div>
+            <div class="qf-row"><label>Service *</label><select id="qService" required><option value="" disabled selected>Select service</option><option>Canvas Printing</option><option>Sticker Printing</option><option>Label Printing</option><option>Poster & Leaflet Printing</option><option>CNC Cutting</option><option>Signboards & Signage</option><option>Election Campaign Materials</option><option>3D Printing</option><option>Awards & Custom Fabrication</option><option>On-site Installation</option><option>Island-wide Delivery</option></select></div>
+            <div class="qf-row"><label>Details *</label><textarea id="qDetails" required placeholder="Describe your project — quantity, size, design, timeline..." style="height:90px"></textarea></div>
+            <label class="platform-label">How should we reply? *</label>
+            <div class="platform-grid">
+                <label class="platform-option"><input type="radio" name="platform" value="whatsapp" checked><div class="platform-option-card"><div class="p-icon wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div class="p-name">WhatsApp</div><div class="p-desc">Instant reply</div></div></label>
+                <label class="platform-option"><input type="radio" name="platform" value="viber"><div class="platform-option-card"><div class="p-icon vb"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="p-name">Viber</div><div class="p-desc">Chat &amp; calls</div></div></label>
+                <label class="platform-option"><input type="radio" name="platform" value="email"><div class="platform-option-card"><div class="p-icon em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="p-name">Email</div><div class="p-desc">Formal reply</div></div></label>
+            </div>
+            <button type="submit" class="qf-submit" id="qSubmitBtn"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg><span id="qSubmitText">Send via WhatsApp</span></button>
+            <p class="qf-note" id="qSubmitNote">Opens WhatsApp with your pre-filled quote request.</p>
+        </form>
+    </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/960XXXXXXXX?text=Hi%20Red%20Creative%2C%20I%27d%20like%20to%20inquire%20about%20your%20printing%20services." target="_blank" class="wa-float" title="Chat on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+<script>
+// ===== NAV =====
+const nav=document.getElementById('nav'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{if(scrollY>60){nav.classList.add('scrolled')}else{nav.classList.add('scrolled')}btt.classList.toggle('show',scrollY>500)});
+nav.classList.add('scrolled');
+
+// ===== MOBILE MENU =====
+const mobBtn=document.getElementById('mobBtn');
+function toggleMob(){document.getElementById('mobMenu').classList.add('open');document.body.style.overflow='hidden';mobBtn.classList.add('active')}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');document.body.style.overflow='';mobBtn.classList.remove('active')}
+
+// ===== QUOTE MODAL =====
+function openQuote(svc){document.getElementById('qModal').classList.add('open');document.body.style.overflow='hidden';if(svc){const s=document.getElementById('qService');for(let o of s.options)if(o.text===svc){s.value=o.value;break}}}
+function closeQuote(){document.getElementById('qModal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
+
+// ===== DYNAMIC SUBMIT =====
+const platformRadios=document.querySelectorAll('input[name="platform"]'),submitText=document.getElementById('qSubmitText'),submitNote=document.getElementById('qSubmitNote'),submitBtn=document.getElementById('qSubmitBtn');
+const cfg={whatsapp:{text:'Send via WhatsApp',note:'Opens WhatsApp with your pre-filled quote request.',color:'#25D366',dark:'#128C7E'},viber:{text:'Send via Viber',note:'Opens Viber with your pre-filled quote request.',color:'#7360F2',dark:'#5B47C7'},email:{text:'Send via Email',note:'Opens your email app with a pre-filled quote request.',color:'#F57C00',dark:'#E65100'}};
+function updateBtn(){const v=document.querySelector('input[name="platform"]:checked').value,c=cfg[v];submitText.textContent=c.text;submitNote.textContent=c.note;submitBtn.style.background=c.color;submitBtn.style.boxShadow='0 8px 24px '+c.color+'40';submitBtn.onmouseenter=()=>{submitBtn.style.background=c.dark;submitBtn.style.transform='translateY(-1px)'};submitBtn.onmouseleave=()=>{submitBtn.style.background=c.color;submitBtn.style.transform='translateY(0)'}}
+platformRadios.forEach(r=>r.addEventListener('change',updateBtn));updateBtn();
+
+function handleQuote(e){e.preventDefault();const n=document.getElementById('qName').value,s=document.getElementById('qService').value,d=document.getElementById('qDetails').value,p=document.getElementById('qPhone').value,em=document.getElementById('qEmail').value,pl=document.querySelector('input[name="platform"]:checked').value;const b=`📋 *Quote Request — Red Creative*%0A%0A👤 Name: ${n}%0A📞 Phone: ${p||'N/A'}%0A✉️ Email: ${em||'N/A'}%0A🔧 Service: ${s}%0A📝 Details: ${d}`,bp='Quote Request — Red Creative\n\nName: '+n+'\nPhone: '+(p||'N/A')+'\nEmail: '+(em||'N/A')+'\nService: '+s+'\nDetails: '+d;if(pl==='whatsapp')window.open('https://wa.me/960XXXXXXXX?text='+b,'_blank');else if(pl==='viber')window.open('viber://chat?number=960XXXXXXXX&text='+encodeURIComponent(bp),'_blank');else window.location.href='mailto:info@redcreative.mv?subject='+encodeURIComponent('Quote Request — '+s)+'&body='+encodeURIComponent(bp);closeQuote()}
+
+// ===== FAQ =====
+function toggleFaq(item){const w=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('active');i.querySelector('.faq-a').style.maxHeight=null});if(!w){item.classList.add('active');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px'}}
+
+// ===== OBSERVER =====
+const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target)}})},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.obs').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

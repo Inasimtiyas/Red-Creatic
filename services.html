@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Red Creative — Printing & Signage Maldives</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E53935;--red-dark:#C62828;--red-light:#FFEBEE;--dark:#0A0A0A;--dark2:#141414;--dark3:#1E1E1E;--gray:#777;--gray-light:#F7F7F7;--white:#fff}
+body{font-family:'Inter',sans-serif;background:var(--white);color:#111;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--red);border-radius:9px}
+
+/* ========== NAV ========== */
+#nav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;justify-content:space-between;padding:.6rem 5%;height:62px;background:transparent;transition:all .5s cubic-bezier(.4,0,.2,1)}
+#nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;transition:all .4s;z-index:2}
+#nav.scrolled .nav-logo{color:#111}
+.nav-logo img{height:38px;width:38px;object-fit:contain;filter:brightness(0) invert(1);transition:filter .4s}
+#nav.scrolled .nav-logo img{filter:none}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.1}
+.nav-logo-text small{display:block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;font-weight:400;font-family:'Inter',sans-serif}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{text-decoration:none;color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .3s}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+#nav.scrolled .nav-link{color:#555}
+#nav.scrolled .nav-link:hover{color:#111;background:rgba(0,0,0,.04)}
+.nav-link.active-link{color:var(--red)!important;background:rgba(229,57,53,.08)!important}
+#nav.scrolled .nav-link.active-link{background:var(--red-light)!important}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:9px 22px!important;border-radius:20px!important;font-weight:600!important;box-shadow:0 4px 18px rgba(229,57,53,.3);text-decoration:none;transition:all .3s!important}
+.nav-cta:hover{background:var(--red-dark)!important;transform:translateY(-1px);box-shadow:0 8px 25px rgba(229,57,53,.4)}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:2;position:relative;width:40px;height:40px;align-items:center;justify-content:center}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;position:relative;transition:all .35s cubic-bezier(.4,0,.2,1);border-radius:2px}
+.mob-btn span::before,.mob-btn span::after{content:'';position:absolute;left:0;width:100%;height:100%;background:#fff;border-radius:2px;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.mob-btn span::before{top:-7px}
+.mob-btn span::after{top:7px}
+#nav.scrolled .mob-btn span,#nav.scrolled .mob-btn span::before,#nav.scrolled .mob-btn span::after{background:#111}
+.mob-btn.active span{background:transparent}
+.mob-btn.active span::before{top:0;transform:rotate(45deg);background:#111}
+.mob-btn.active span::after{top:0;transform:rotate(-45deg);background:#111}
+#mobMenu{position:fixed;inset:0;z-index:8999;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+#mobMenu.open{opacity:1;pointer-events:auto}
+#mobPanel{position:absolute;top:0;right:0;width:min(320px,88vw);height:100%;background:#fff;padding:0;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+#mobMenu.open #mobPanel{transform:translateX(0)}
+.mob-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.mob-header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#111}
+.mob-header-logo img{height:32px;object-fit:contain}
+.mob-header-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+.mob-close{background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mob-close:hover{background:#f5f5f5;color:#111}
+.mob-body{flex:1;padding:8px 12px;overflow-y:auto}
+.mob-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#333;font-size:15px;font-weight:500;padding:14px 12px;border-radius:12px;transition:all .2s;margin-bottom:2px}
+.mob-link:hover{color:var(--red);background:var(--red-light)}
+.mob-link.active-link{color:var(--red);background:var(--red-light);font-weight:600}
+.mob-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.mob-link.active-link svg{opacity:1}
+.mob-divider{height:1px;background:#f0f0f0;margin:8px 12px}
+.mob-footer{padding:16px 12px;border-top:1px solid #f0f0f0;flex-shrink:0}
+.mob-link-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff!important;text-align:center;padding:14px;border-radius:14px;font-weight:600;text-decoration:none;font-size:15px;transition:all .3s;box-shadow:0 4px 16px rgba(229,57,53,.25)}
+.mob-link-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
+.mob-link-cta svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;opacity:1}
+.mob-contact-row{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;color:var(--gray);text-decoration:none;border-radius:10px;transition:all .2s;margin-top:4px}
+.mob-contact-row:hover{background:#f8f8f8;color:#333}
+.mob-contact-row svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.5}
+@media(max-width:900px){.nav-links{display:none}.mob-btn{display:flex}}
+
+/* ========== PAGE HERO ========== */
+.page-hero{position:relative;min-height:50vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+.page-hero-media{position:absolute;inset:0;z-index:0}
+.page-hero-media img{width:100%;height:100%;object-fit:cover}
+.page-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 40%,rgba(229,57,53,.12) 100%)}
+.page-hero-content{position:relative;z-index:3;padding:100px 5% 50px}
+.page-hero .label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px;background:rgba(229,57,53,.1);padding:6px 16px;border-radius:20px;border:1px solid rgba(229,57,53,.15)}
+.page-hero h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px}
+.page-hero h1 em{font-style:normal;color:var(--red)}
+.page-hero>p{color:rgba(255,255,255,.4);font-size:15px;max-width:520px;margin:0 auto;line-height:1.7}
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:12px;color:rgba(255,255,255,.3)}
+.breadcrumb a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--red)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+
+/* ========== SECTIONS ========== */
+.section{padding:clamp(40px,7vw,110px) 5%}
+.section-gray{background:var(--gray-light)}
+.section-dark{background:var(--dark)}
+.section-header{text-align:center;margin-bottom:clamp(32px,5vw,64px)}
+.section-header .label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.section-header h2{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;line-height:1.15}
+.section-header h2 em{font-style:normal;color:var(--red)}
+.section-header p{color:var(--gray);font-size:14px;max-width:520px;margin:12px auto 0;line-height:1.7}
+.red-line{width:50px;height:3px;background:var(--red);border-radius:2px;margin:12px auto 0}
+
+/* ========== SERVICE CATEGORY TABS ========== */
+.svc-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:clamp(28px,4vw,48px)}
+.svc-tab{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:30px;border:1.5px solid #e0e0e0;background:#fff;font-size:13px;font-weight:600;color:#555;cursor:pointer;transition:all .3s;text-decoration:none}
+.svc-tab:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+.svc-tab.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 4px 16px rgba(229,57,53,.25)}
+.svc-tab svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== SERVICE DETAIL CARDS ========== */
+.svc-detail-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:640px){.svc-detail-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.svc-detail-grid{grid-template-columns:repeat(3,1fr)}}
+.svc-detail-card{background:#fff;border:1.5px solid #eee;border-radius:20px;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1);position:relative}
+.svc-detail-card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(0,0,0,.08);border-color:rgba(229,57,53,.15)}
+.svc-detail-img{position:relative;overflow:hidden;height:200px}
+@media(min-width:640px){.svc-detail-img{height:220px}}
+.svc-detail-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.svc-detail-card:hover .svc-detail-img img{transform:scale(1.06)}
+.svc-detail-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:5px 12px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.svc-detail-badge.flagship{background:var(--red);color:#fff}
+.svc-detail-body{padding:22px}
+.svc-detail-body h3{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.svc-detail-body h3 .svc-num{font-size:11px;font-weight:800;color:var(--red);background:var(--red-light);width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.svc-detail-body>p{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:14px}
+.svc-features{list-style:none;padding:0;margin-bottom:18px}
+.svc-features li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#555;padding:5px 0;border-bottom:1px solid #f7f7f7}
+.svc-features li:last-child{border-bottom:none}
+.svc-features li svg{width:14px;height:14px;stroke:var(--red);stroke-width:2.5;fill:none;flex-shrink:0;margin-top:2px;stroke-linecap:round;stroke-linejoin:round}
+.svc-detail-cta{display:inline-flex;align-items:center;gap:6px;background:var(--dark);color:#fff;text-decoration:none;padding:11px 22px;border-radius:12px;font-size:12px;font-weight:600;transition:all .3s;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.svc-detail-cta:hover{background:var(--red);transform:translateY(-2px);box-shadow:0 8px 20px rgba(229,57,53,.25)}
+.svc-detail-cta svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== PROCESS SECTION ========== */
+.process-grid{display:grid;grid-template-columns:1fr;gap:0;position:relative;max-width:800px;margin:0 auto}
+@media(min-width:640px){.process-grid{grid-template-columns:repeat(4,1fr);gap:0}}
+.process-line{display:none}
+@media(min-width:640px){
+    .process-line{display:block;position:absolute;top:44px;left:calc(12.5% + 10px);right:calc(12.5% + 10px);height:2px;background:linear-gradient(90deg,var(--red),rgba(229,57,53,.2));z-index:0}
+}
+.process-step{text-align:center;padding:24px 12px;position:relative;z-index:1}
+.process-icon{width:56px;height:56px;border-radius:16px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;transition:all .4s;border:2px solid transparent}
+.process-step:hover .process-icon{background:var(--red);transform:translateY(-4px);box-shadow:0 8px 24px rgba(229,57,53,.25)}
+.process-icon svg{width:22px;height:22px;stroke:var(--red);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .4s}
+.process-step:hover .process-icon svg{stroke:#fff}
+.process-num{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:800;color:var(--red);margin-bottom:6px}
+.process-step h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.process-step p{font-size:12px;color:var(--gray);line-height:1.6;max-width:160px;margin:0 auto}
+
+/* ========== EQUIPMENT SECTION ========== */
+.equip-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.equip-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.equip-grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+.equip-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;text-align:center;transition:all .4s}
+.equip-card:hover{background:rgba(255,255,255,.07);border-color:rgba(229,57,53,.15);transform:translateY(-4px)}
+.equip-icon{font-size:32px;margin-bottom:12px;display:block}
+.equip-card h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:4px}
+.equip-card p{color:rgba(255,255,255,.35);font-size:12px;line-height:1.6}
+.equip-card .equip-spec{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(229,57,53,.1);padding:4px 12px;border-radius:6px}
+
+/* ========== FAQ ========== */
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:all .3s}
+.faq-item:hover{border-color:rgba(255,255,255,.1)}
+.faq-item.active{border-color:rgba(229,57,53,.2);background:rgba(229,57,53,.03)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;gap:12px}
+.faq-q h4{font-size:14px;font-weight:600;color:#fff;flex:1}
+.faq-q-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px;color:rgba(255,255,255,.4)}
+.faq-item.active .faq-q-icon{background:var(--red);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.faq-a-inner{padding:0 20px 18px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.8}
+
+/* ========== CTA ========== */
+.cta-section{background:var(--red);position:relative;overflow:hidden;padding:clamp(50px,8vw,100px) 5%;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:20px 20px}
+.cta-section h2{color:#fff;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;margin-bottom:14px;position:relative}
+.cta-section p{color:rgba(255,255,255,.7);font-size:14px;max-width:480px;margin:0 auto 28px;position:relative;line-height:1.7}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--red);text-decoration:none;padding:15px 30px;border-radius:14px;font-size:14px;font-weight:700;transition:all .3s;position:relative}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+
+/* ========== FOOTER ========== */
+footer{background:var(--dark);color:#fff;padding:clamp(36px,4vw,60px) 5% 18px}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-logo img{height:30px;filter:brightness(0) invert(1)}
+.footer-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+footer p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7}
+footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;color:rgba(255,255,255,.6)}
+footer ul{list-style:none}footer ul li{margin-bottom:6px}
+footer ul a{color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:color .2s}
+footer ul a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.footer-bottom p{font-size:11px}
+.footer-social{display:flex;gap:6px}
+.footer-social a{width:32px;height:32px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:all .3s}
+.footer-social a:hover{background:var(--red);color:#fff}
+
+/* ========== WHATSAPP ========== */
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:8000;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .3s;text-decoration:none;color:#fff}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float::before{content:'';position:absolute;inset:-5px;border-radius:50%;background:#25D366;animation:waP 2s ease-out infinite;z-index:-1}
+@keyframes waP{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+
+/* ========== QUOTE MODAL ========== */
+#qModal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:16px}
+#qModal.open{display:flex}
+#qModalBg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+#qModalBox{position:relative;background:#fff;border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:clamp(20px,4vw,32px);box-shadow:0 25px 60px rgba(0,0,0,.2);animation:mIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.q-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.q-close:hover{background:#f5f5f5;color:#333}
+.qf-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:480px){.qf-row.two{grid-template-columns:1fr 1fr}}
+.qf-row label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#444}
+.qf-row input,.qf-row textarea,.qf-row select{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:12px;font-size:13px;font-family:'Inter',sans-serif;background:#fafafa;outline:none;transition:all .3s}
+.qf-row input:focus,.qf-row textarea:focus,.qf-row select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(229,57,53,.06)}
+.qf-row textarea{resize:none;height:80px}
+.qf-row select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.platform-label{font-size:12px;font-weight:600;color:#444;margin-bottom:8px;display:block}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.platform-option{position:relative;cursor:pointer}
+.platform-option input{position:absolute;opacity:0;pointer-events:none}
+.platform-option-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border:2px solid #e8e8e8;border-radius:14px;transition:all .3s;text-align:center;background:#fafafa}
+.platform-option-card:hover{border-color:#ccc;background:#fff}
+.platform-option input:checked+.platform-option-card{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 4px rgba(229,57,53,.08)}
+.platform-option-card .p-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s}
+.platform-option input:checked+.platform-option-card .p-icon{transform:scale(1.1)}
+.p-icon.wa{background:#E8F5E9;color:#25D366}
+.p-icon.vb{background:#F3E5F5;color:#7360F2}
+.p-icon.em{background:#FFF3E0;color:#F57C00}
+.platform-option-card .p-name{font-size:11px;font-weight:700;color:#333}
+.platform-option-card .p-desc{font-size:9px;color:var(--gray);line-height:1.4}
+.platform-option input:checked+.platform-option-card .p-name{color:var(--red)}
+.qf-submit{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 8px 24px rgba(229,57,53,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.qf-submit:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 12px 35px rgba(229,57,53,.35)}
+.qf-submit svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.qf-note{font-size:11px;color:#999;margin-top:10px;text-align:center;line-height:1.6}
+
+/* ========== BACK TO TOP ========== */
+#btt{position:fixed;bottom:20px;left:20px;z-index:8000;width:42px;height:42px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;border:none;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+#btt.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#btt:hover{background:var(--red)}
+
+/* ========== OBSERVE ========== */
+.obs{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.obs.visible{opacity:1;transform:translateY(0)}
+.obs-delay-1{transition-delay:.1s}
+.obs-delay-2{transition-delay:.2s}
+.obs-delay-3{transition-delay:.3s}
+.obs-delay-4{transition-delay:.4s}
+.obs-delay-5{transition-delay:.5s}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav id="nav" class="scrolled">
+    <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="RC">
+        <div class="nav-logo-text">Red Creative<small>Maldives</small></div>
+    </a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link active-link">Services</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="#" class="nav-link nav-cta" onclick="openQuote();return false">Get Quote</a>
+    </div>
+    <button class="mob-btn" id="mobBtn" onclick="toggleMob()"><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobMenu" onclick="closeMob()">
+    <div id="mobPanel" onclick="event.stopPropagation()">
+        <div class="mob-header">
+            <a href="index.html" class="mob-header-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></a>
+            <button class="mob-close" onclick="closeMob()">✕</button>
+        </div>
+        <div class="mob-body">
+            <a href="index.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+            <a href="services.html" class="mob-link active-link"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Services</a>
+            <a href="about.html" class="mob-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About Us</a>
+            <a href="portfolio.html" class="mob-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Portfolio</a>
+            <a href="team.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Our Team</a>
+            <a href="contact.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Contact</a>
+            <div class="mob-divider"></div>
+            <a href="tel:+960XXXXXXXX" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+960 XXXX XXXX</a>
+            <a href="mailto:info@redcreative.mv" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@redcreative.mv</a>
+        </div>
+        <div class="mob-footer">
+            <a href="#" class="mob-link-cta" onclick="openQuote();closeMob();return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get a Quote</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-media">
+        <img src="https://picsum.photos/seed/redcreative-services-hero/1920/900" alt="Services Hero">
+    </div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="label">What We Offer</div>
+        <h1>Our <em>Services</em></h1>
+        <p>From concept to installation — comprehensive printing, signage, and fabrication solutions for every business need.</p>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <span style="color:rgba(255,255,255,.55)">Services</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== SERVICE TABS ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">11 Services</div>
+        <h2>Everything You <em>Need</em></h2>
+        <div class="red-line"></div>
+        <p>Browse by category or scroll through all our services below.</p>
+    </div>
+    <div class="svc-tabs obs">
+        <button class="svc-tab active" onclick="filterSvc('all',this)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            All Services
+        </button>
+        <button class="svc-tab" onclick="filterSvc('printing',this)">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Printing
+        </button>
+        <button class="svc-tab" onclick="filterSvc('signage',this)">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Signage
+        </button>
+        <button class="svc-tab" onclick="filterSvc('fabrication',this)">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Fabrication
+        </button>
+        <button class="svc-tab" onclick="filterSvc('logistics',this)">
+            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Logistics
+        </button>
+    </div>
+
+    <!-- ========== SERVICE CARDS ========== -->
+    <div class="svc-detail-grid" id="svcGrid">
+
+        <!-- 01 Canvas Printing -->
+        <div class="svc-detail-card obs" data-cat="printing">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-canvas-art-print/600/400" alt="Canvas Printing">
+                <div class="svc-detail-badge">Printing</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">01</span>Canvas Printing</h3>
+                <p>Premium art and décor canvas prints with gallery-quality color reproduction on stretched or rolled canvas.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Gallery-wrap &amp; rolled options</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Up to 1200dpi resolution</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>UV-resistant inks</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom sizes available</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Canvas Printing');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 02 Sticker Printing -->
+        <div class="svc-detail-card obs obs-delay-1" data-cat="printing">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-sticker-vinyl-red/600/400" alt="Sticker Printing">
+                <div class="svc-detail-badge">Printing</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">02</span>Sticker Printing</h3>
+                <p>Custom die-cut, vinyl, holographic, and laminated stickers for branding, packaging, and promotions.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Die-cut any shape</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Vinyl, paper, holographic</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Glossy &amp; matte lamination</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Waterproof options</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Sticker Printing');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 03 Label Printing -->
+        <div class="svc-detail-card obs obs-delay-2" data-cat="printing">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-label-product-print/600/400" alt="Label Printing">
+                <div class="svc-detail-badge">Printing</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">03</span>Label Printing</h3>
+                <p>Product labels, barcode labels, food-grade labels, and custom stickers for retail and industrial use.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Roll &amp; sheet formats</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Food-safe materials</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Barcode &amp; QR integration</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bulk orders welcome</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Label Printing');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 04 Poster & Leaflet -->
+        <div class="svc-detail-card obs" data-cat="printing">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-poster-leaflet-design/600/400" alt="Poster & Leaflet Printing">
+                <div class="svc-detail-badge">Printing</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">04</span>Poster &amp; Leaflet</h3>
+                <p>High-impact posters, flyers, brochures, and leaflets for marketing campaigns and events.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>A3, A4, A5, custom</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Glossy &amp; matte finishes</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Folded brochure options</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Same-day rush available</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Poster & Leaflet Printing');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 05 CNC Cutting -->
+        <div class="svc-detail-card obs obs-delay-1" data-cat="fabrication">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-cnc-cutting-machine/600/400" alt="CNC Cutting">
+                <div class="svc-detail-badge">Fabrication</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">05</span>CNC Cutting</h3>
+                <p>Precision CNC routing and cutting for acrylic, wood, MDF, foam, and composite materials.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Multi-material capability</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>±0.1mm precision</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Large format cutting</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom vector shapes</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('CNC Cutting');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 06 Signboards -->
+        <div class="svc-detail-card obs obs-delay-2" data-cat="signage">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-signboard-led-glow/600/400" alt="Signboards">
+                <div class="svc-detail-badge">Signage</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">06</span>Signboards &amp; Signage</h3>
+                <p>Illuminated, LED, neon flex, channel letter, and custom signboards for storefronts and buildings.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>LED &amp; neon flex lighting</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>3D channel letters</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Weather-proof builds</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Full design-to-install</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Signboards & Signage');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 07 Election Materials -->
+        <div class="svc-detail-card obs" data-cat="printing">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-election-campaign-mat/600/400" alt="Election Campaign Materials">
+                <div class="svc-detail-badge">Printing</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">07</span>Election Campaign</h3>
+                <p>Banners, flags, posters, billboards, and complete campaign material packages for elections.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Large-format banners</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Flag &amp; pennant printing</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Billboard production</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Island-wide deployment</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Election Campaign Materials');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 08 3D Printing — FLAGSHIP -->
+        <div class="svc-detail-card obs obs-delay-1" data-cat="fabrication">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-3d-print-advanced/600/400" alt="3D Printing">
+                <div class="svc-detail-badge flagship">⭐ Flagship</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">08</span>3D Printing</h3>
+                <p>The most advanced large-scale 3D printing facility in the Maldives. Prototypes, models, decorative elements, and functional parts.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Large-format FDM &amp; resin</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>PLA, ABS, PETG, resin</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Multi-color printing</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Design assistance included</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('3D Printing');return false" style="background:var(--red);box-shadow:0 4px 14px rgba(229,57,53,.25)"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 09 Awards & Fabrication -->
+        <div class="svc-detail-card obs obs-delay-2" data-cat="fabrication">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-awards-trophy-custom/600/400" alt="Awards & Custom Fabrication">
+                <div class="svc-detail-badge">Fabrication</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">09</span>Awards &amp; Fabrication</h3>
+                <p>Custom trophies, plaques, medals, acrylic displays, and bespoke fabricated items for any occasion.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Laser engraving</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Acrylic, metal, wood</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom shapes &amp; sizes</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Corporate &amp; event branding</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Awards & Custom Fabrication');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 10 Installation -->
+        <div class="svc-detail-card obs" data-cat="logistics">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-installation-on-site/600/400" alt="On-site Installation">
+                <div class="svc-detail-badge">Logistics</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">10</span>On-site Installation</h3>
+                <p>Professional installation team for signboards, displays, banners, and large-format prints at your location.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Experienced crew</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Height &amp; difficult access</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Resort &amp; commercial sites</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cleanup &amp; testing included</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('On-site Installation');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+        <!-- 11 Island-wide Delivery -->
+        <div class="svc-detail-card obs obs-delay-1" data-cat="logistics">
+            <div class="svc-detail-img">
+                <img src="https://picsum.photos/seed/svc-delivery-island-boat/600/400" alt="Island-wide Delivery">
+                <div class="svc-detail-badge">Logistics</div>
+            </div>
+            <div class="svc-detail-body">
+                <h3><span class="svc-num">11</span>Island-wide Delivery</h3>
+                <p>Reliable packaging and delivery service to any island in the Maldives via cargo, speed boat, or air freight.</p>
+                <ul class="svc-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All atolls covered</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Secure packaging</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Express options</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tracking available</li>
+                </ul>
+                <a href="#" class="svc-detail-cta" onclick="openQuote('Island-wide Delivery');return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get Quote</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========== OUR PROCESS ========== -->
+<section class="section section-gray">
+    <div class="section-header obs">
+        <div class="label">How It Works</div>
+        <h2>Our <em>Process</em></h2>
+        <div class="red-line"></div>
+        <p>From your first inquiry to final delivery — a seamless 4-step experience.</p>
+    </div>
+    <div class="process-grid obs">
+        <div class="process-line"></div>
+        <div class="process-step">
+            <div class="process-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="process-num">STEP 01</div>
+            <h4>Inquiry</h4>
+            <p>Send us your requirements via WhatsApp, Viber, or email with design files or references.</p>
+        </div>
+        <div class="process-step">
+            <div class="process-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div class="process-num">STEP 02</div>
+            <h4>Design &amp; Quote</h4>
+            <p>Our team reviews, refines designs if needed, and sends you a detailed quote.</p>
+        </div>
+        <div class="process-step">
+            <div class="process-icon">
+                <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </div>
+            <div class="process-num">STEP 03</div>
+            <h4>Production</h4>
+            <p>Once approved, we produce your order with quality checks at every stage.</p>
+        </div>
+        <div class="process-step">
+            <div class="process-icon">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="process-num">STEP 04</div>
+            <h4>Deliver &amp; Install</h4>
+            <p>Packaged securely and delivered island-wide. On-site installation available.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== EQUIPMENT ========== -->
+<section class="section section-dark">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Our Arsenal</div>
+        <h2 style="color:#fff">Equipment &amp; <em style="color:var(--red)">Technology</em></h2>
+        <div class="red-line"></div>
+        <p>We invest in the latest machinery to deliver unmatched quality and precision.</p>
+    </div>
+    <div class="equip-grid">
+        <div class="equip-card obs">
+            <span class="equip-icon">🖨️</span>
+            <h4>Large-Format Printers</h4>
+            <p>Eco-solvent and UV flatbed printers for indoor and outdoor applications.</p>
+            <span class="equip-spec">Up to 3.2m width</span>
+        </div>
+        <div class="equip-card obs obs-delay-1">
+            <span class="equip-icon">🔷</span>
+            <h4>3D Printer Farm</h4>
+            <p>Multiple FDM and resin printers running in parallel for fast turnaround.</p>
+            <span class="equip-spec">Largest in Maldives</span>
+        </div>
+        <div class="equip-card obs obs-delay-2">
+            <span class="equip-icon">⚡</span>
+            <h4>CNC Router</h4>
+            <p>Precision 3-axis CNC for cutting, engraving, and shaping multiple materials.</p>
+            <span class="equip-spec">±0.1mm accuracy</span>
+        </div>
+        <div class="equip-card obs obs-delay-3">
+            <span class="equip-icon">✂️</span>
+            <h4>Laser Cutter</h4>
+            <p>CO2 laser for precise cutting and engraving on acrylic, wood, and more.</p>
+            <span class="equip-spec">60W &amp; 100W</span>
+        </div>
+        <div class="equip-card obs obs-delay-4">
+            <span class="equip-icon">📐</span>
+            <h4>Laminator</h4>
+            <p>Cold and hot laminators for protective finishes on prints and signage.</p>
+            <span class="equip-spec">1.6m wide format</span>
+        </div>
+        <div class="equip-card obs obs-delay-5">
+            <span class="equip-icon">🔧</span>
+            <h4>Workshop Tools</h4>
+            <p>Complete fabrication workshop with welding, bending, and assembly stations.</p>
+            <span class="equip-spec">Full in-house capability</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section class="section section-dark" style="border-top:1px solid rgba(255,255,255,.04)">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Common Questions</div>
+        <h2 style="color:#fff">Service <em style="color:var(--red)">FAQ</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item obs" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>What's your minimum order quantity?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">We have no strict minimum — we handle everything from a single custom sticker to 100,000 labels. For small orders, pricing may be slightly higher per unit. Contact us for a quote regardless of quantity.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-1" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>How long does production take?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Standard jobs: 2–5 working days. Rush orders can be done same-day or next-day depending on the service and quantity. 3D printing timelines depend on print size and complexity — we'll give you an exact timeline with your quote.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-2" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Can you design from a concept or reference?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Absolutely. Our in-house design team can create designs from scratch based on your brief, reference images, or even a rough sketch. Design services are charged separately or bundled with print orders at a discount.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-3" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>What file formats do you accept?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">We prefer vector formats: AI, EPS, SVG, PDF. For photos/raster: PNG, TIFF, or JPEG at 300 DPI minimum. If you're unsure, send what you have — we'll check print-readiness for free.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-4" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Do you offer discounts for bulk orders?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Yes! We offer tiered pricing — the higher the quantity, the lower the per-unit cost. We also have special rates for repeat clients and long-term contracts. Ask about our corporate packages.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-5" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Can I see a sample before full production?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">Yes, we provide digital proofs for approval before printing. For physical samples, a small fee may apply depending on the product. For large projects like signage, we can produce a section sample for on-site review.</div></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <h2>Not Sure Which Service You Need?</h2>
+    <p>No worries — describe your project and our team will recommend the best solution and send you a detailed quote.</p>
+    <a href="#" class="btn-white" onclick="openQuote();return false">Get a Free Quote →</a>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></div>
+            <p>The leading printing and signage solutions provider in the Maldives since 2018. Trusted by 1000+ clients.</p>
+        </div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Canvas Printing</a></li><li><a href="services.html">Sticker &amp; Labels</a></li><li><a href="services.html">Signboards</a></li><li><a href="services.html">3D Printing</a></li><li><a href="services.html">Installation</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li><li><a href="#" onclick="openQuote();return false">Get a Quote</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Red Creative Maldives. All rights reserved.</p>
+        <div class="footer-social"><a href="#" title="Instagram">📷</a><a href="#" title="Facebook">📘</a></div>
+    </div>
+</footer>
+
+
+<!-- ========== QUOTE MODAL ========== -->
+<div id="qModal">
+    <div id="qModalBg" onclick="closeQuote()"></div>
+    <div id="qModalBox">
+        <button class="q-close" onclick="closeQuote()">✕</button>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Request a Quote</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.5">We'll respond within 24 hours via your preferred platform.</p>
+        <form id="quoteForm" onsubmit="handleQuote(event)">
+            <div class="qf-row two">
+                <div><label>Name *</label><input type="text" id="qName" required placeholder="Your name"></div>
+                <div><label>Phone</label><input type="tel" id="qPhone" placeholder="+960 XXXX XXXX"></div>
+            </div>
+            <div class="qf-row"><label>Email</label><input type="email" id="qEmail" placeholder="your@email.com"></div>
+            <div class="qf-row"><label>Service *</label>
+                <select id="qService" required>
+                    <option value="" disabled selected>Select service</option>
+                    <option>Canvas Printing</option>
+                    <option>Sticker Printing</option>
+                    <option>Label Printing</option>
+                    <option>Poster & Leaflet Printing</option>
+                    <option>CNC Cutting</option>
+                    <option>Signboards & Signage</option>
+                    <option>Election Campaign Materials</option>
+                    <option>3D Printing</option>
+                    <option>Awards & Custom Fabrication</option>
+                    <option>On-site Installation</option>
+                    <option>Island-wide Delivery</option>
+                </select>
+            </div>
+            <div class="qf-row"><label>Details *</label><textarea id="qDetails" required placeholder="Describe your project — quantity, size, design, timeline..." style="height:90px"></textarea></div>
+            <label class="platform-label">How should we reply? *</label>
+            <div class="platform-grid">
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="whatsapp" checked>
+                    <div class="platform-option-card">
+                        <div class="p-icon wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+                        <div class="p-name">WhatsApp</div>
+                        <div class="p-desc">Instant reply</div>
+                    </div>
+                </label>
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="viber">
+                    <div class="platform-option-card">
+                        <div class="p-icon vb"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                        <div class="p-name">Viber</div>
+                        <div class="p-desc">Chat &amp; calls</div>
+                    </div>
+                </label>
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="email">
+                    <div class="platform-option-card">
+                        <div class="p-icon em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                        <div class="p-name">Email</div>
+                        <div class="p-desc">Formal reply</div>
+                    </div>
+                </label>
+            </div>
+            <button type="submit" class="qf-submit" id="qSubmitBtn">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span id="qSubmitText">Send via WhatsApp</span>
+            </button>
+            <p class="qf-note" id="qSubmitNote">Opens WhatsApp with your pre-filled quote request.</p>
+        </form>
+    </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/960XXXXXXXX?text=Hi%20Red%20Creative%2C%20I%27d%20like%20to%20inquire%20about%20your%20printing%20services." target="_blank" class="wa-float" title="Chat on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+<script>
+// ===== NAV SCROLL =====
+const nav=document.getElementById('nav'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+    if(scrollY>60){nav.classList.add('scrolled')}
+    else{nav.classList.add('scrolled')}
+    btt.classList.toggle('show',scrollY>500);
+});
+nav.classList.add('scrolled');
+
+// ===== MOBILE MENU =====
+const mobBtn=document.getElementById('mobBtn');
+function toggleMob(){document.getElementById('mobMenu').classList.add('open');document.body.style.overflow='hidden';mobBtn.classList.add('active')}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');document.body.style.overflow='';mobBtn.classList.remove('active')}
+
+// ===== QUOTE MODAL =====
+function openQuote(svc){document.getElementById('qModal').classList.add('open');document.body.style.overflow='hidden';if(svc){const s=document.getElementById('qService');for(let o of s.options)if(o.text===svc){s.value=o.value;break}}}
+function closeQuote(){document.getElementById('qModal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
+
+// ===== DYNAMIC SUBMIT BUTTON =====
+const platformRadios=document.querySelectorAll('input[name="platform"]');
+const submitText=document.getElementById('qSubmitText');
+const submitNote=document.getElementById('qSubmitNote');
+const submitBtn=document.getElementById('qSubmitBtn');
+const platformConfig={
+    whatsapp:{text:'Send via WhatsApp',note:'Opens WhatsApp with your pre-filled quote request.',color:'#25D366',darkColor:'#128C7E'},
+    viber:{text:'Send via Viber',note:'Opens Viber with your pre-filled quote request.',color:'#7360F2',darkColor:'#5B47C7'},
+    email:{text:'Send via Email',note:'Opens your email app with a pre-filled quote request.',color:'#F57C00',darkColor:'#E65100'}
+};
+function updateSubmitBtn(){
+    const val=document.querySelector('input[name="platform"]:checked').value;
+    const cfg=platformConfig[val];
+    submitText.textContent=cfg.text;submitNote.textContent=cfg.note;
+    submitBtn.style.background=cfg.color;submitBtn.style.boxShadow='0 8px 24px '+cfg.color+'40';
+    submitBtn.onmouseenter=()=>{submitBtn.style.background=cfg.darkColor;submitBtn.style.transform='translateY(-1px)'};
+    submitBtn.onmouseleave=()=>{submitBtn.style.background=cfg.color;submitBtn.style.transform='translateY(0)'};
+}
+platformRadios.forEach(r=>r.addEventListener('change',updateSubmitBtn));
+updateSubmitBtn();
+
+// ===== HANDLE QUOTE SUBMIT =====
+function handleQuote(e){
+    e.preventDefault();
+    const n=document.getElementById('qName').value,s=document.getElementById('qService').value,d=document.getElementById('qDetails').value,p=document.getElementById('qPhone').value,em=document.getElementById('qEmail').value,platform=document.querySelector('input[name="platform"]:checked').value;
+    const body=`📋 *Quote Request — Red Creative*%0A%0A👤 Name: ${n}%0A📞 Phone: ${p||'N/A'}%0A✉️ Email: ${em||'N/A'}%0A🔧 Service: ${s}%0A📝 Details: ${d}`;
+    const bodyPlain=`Quote Request — Red Creative\n\nName: ${n}\nPhone: ${p||'N/A'}\nEmail: ${em||'N/A'}\nService: ${s}\nDetails: ${d}`;
+    if(platform==='whatsapp'){window.open('https://wa.me/960XXXXXXXX?text='+body,'_blank')}
+    else if(platform==='viber'){window.open('viber://chat?number=960XXXXXXXX&text='+encodeURIComponent(bodyPlain),'_blank')}
+    else if(platform==='email'){window.location.href='mailto:info@redcreative.mv?subject='+encodeURIComponent('Quote Request — '+s)+'&body='+encodeURIComponent(bodyPlain)}
+    closeQuote();
+}
+
+// ===== SERVICE FILTER =====
+function filterSvc(cat,btn){
+    document.querySelectorAll('.svc-tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    const cards=document.querySelectorAll('.svc-detail-card');
+    cards.forEach((card,i)=>{
+        const show=cat==='all'||card.dataset.cat===cat;
+        card.style.transition='all .4s cubic-bezier(.4,0,.2,1) '+(i*0.04)+'s';
+        if(show){card.style.display='';setTimeout(()=>{card.style.opacity='1';card.style.transform='translateY(0)'},30)}
+        else{card.style.opacity='0';card.style.transform='translateY(20px)';setTimeout(()=>{card.style.display='none'},400)}
+    });
+}
+
+// ===== FAQ =====
+function toggleFaq(item){
+    const wasActive=item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('active');i.querySelector('.faq-a').style.maxHeight=null});
+    if(!wasActive){item.classList.add('active');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px'}
+}
+
+// ===== INTERSECTION OBSERVER =====
+const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target)}})},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.obs').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

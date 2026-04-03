@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | Red Creative — Printing & Signage Maldives</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E53935;--red-dark:#C62828;--red-light:#FFEBEE;--dark:#0A0A0A;--dark2:#141414;--dark3:#1E1E1E;--gray:#777;--gray-light:#F7F7F7;--white:#fff}
+body{font-family:'Inter',sans-serif;background:var(--white);color:#111;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--red);border-radius:9px}
+
+#nav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;justify-content:space-between;padding:.6rem 5%;height:62px;background:transparent;transition:all .5s cubic-bezier(.4,0,.2,1)}
+#nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;transition:all .4s;z-index:2}
+#nav.scrolled .nav-logo{color:#111}
+.nav-logo img{height:38px;width:38px;object-fit:contain;filter:brightness(0) invert(1);transition:filter .4s}
+#nav.scrolled .nav-logo img{filter:none}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.1}
+.nav-logo-text small{display:block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;font-weight:400;font-family:'Inter',sans-serif}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{text-decoration:none;color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .3s}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+#nav.scrolled .nav-link{color:#555}
+#nav.scrolled .nav-link:hover{color:#111;background:rgba(0,0,0,.04)}
+.nav-link.active-link{color:var(--red)!important;background:rgba(229,57,53,.08)!important}
+#nav.scrolled .nav-link.active-link{background:var(--red-light)!important}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:9px 22px!important;border-radius:20px!important;font-weight:600!important;box-shadow:0 4px 18px rgba(229,57,53,.3);text-decoration:none;transition:all .3s!important}
+.nav-cta:hover{background:var(--red-dark)!important;transform:translateY(-1px);box-shadow:0 8px 25px rgba(229,57,53,.4)}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:2;position:relative;width:40px;height:40px;align-items:center;justify-content:center}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;position:relative;transition:all .35s cubic-bezier(.4,0,.2,1);border-radius:2px}
+.mob-btn span::before,.mob-btn span::after{content:'';position:absolute;left:0;width:100%;height:100%;background:#fff;border-radius:2px;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.mob-btn span::before{top:-7px}
+.mob-btn span::after{top:7px}
+#nav.scrolled .mob-btn span,#nav.scrolled .mob-btn span::before,#nav.scrolled .mob-btn span::after{background:#111}
+.mob-btn.active span{background:transparent}
+.mob-btn.active span::before{top:0;transform:rotate(45deg);background:#111}
+.mob-btn.active span::after{top:0;transform:rotate(-45deg);background:#111}
+#mobMenu{position:fixed;inset:0;z-index:8999;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+#mobMenu.open{opacity:1;pointer-events:auto}
+#mobPanel{position:absolute;top:0;right:0;width:min(320px,88vw);height:100%;background:#fff;padding:0;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+#mobMenu.open #mobPanel{transform:translateX(0)}
+.mob-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.mob-header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#111}
+.mob-header-logo img{height:32px;object-fit:contain}
+.mob-header-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+.mob-close{background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mob-close:hover{background:#f5f5f5;color:#111}
+.mob-body{flex:1;padding:8px 12px;overflow-y:auto}
+.mob-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#333;font-size:15px;font-weight:500;padding:14px 12px;border-radius:12px;transition:all .2s;margin-bottom:2px}
+.mob-link:hover{color:var(--red);background:var(--red-light)}
+.mob-link.active-link{color:var(--red);background:var(--red-light);font-weight:600}
+.mob-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.mob-link.active-link svg{opacity:1}
+.mob-divider{height:1px;background:#f0f0f0;margin:8px 12px}
+.mob-footer{padding:16px 12px;border-top:1px solid #f0f0f0;flex-shrink:0}
+.mob-link-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff!important;text-align:center;padding:14px;border-radius:14px;font-weight:600;text-decoration:none;font-size:15px;transition:all .3s;box-shadow:0 4px 16px rgba(229,57,53,.25)}
+.mob-link-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
+.mob-link-cta svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;opacity:1}
+.mob-contact-row{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;color:var(--gray);text-decoration:none;border-radius:10px;transition:all .2s;margin-top:4px}
+.mob-contact-row:hover{background:#f8f8f8;color:#333}
+.mob-contact-row svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.5}
+@media(max-width:900px){.nav-links{display:none}.mob-btn{display:flex}}
+
+.page-hero{position:relative;min-height:50vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+.page-hero-media{position:absolute;inset:0;z-index:0}
+.page-hero-media img{width:100%;height:100%;object-fit:cover}
+.page-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 40%,rgba(229,57,53,.12) 100%)}
+.page-hero-content{position:relative;z-index:3;padding:100px 5% 50px}
+.page-hero .label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px;background:rgba(229,57,53,.1);padding:6px 16px;border-radius:20px;border:1px solid rgba(229,57,53,.15)}
+.page-hero h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px}
+.page-hero h1 em{font-style:normal;color:var(--red)}
+.page-hero>p{color:rgba(255,255,255,.4);font-size:15px;max-width:520px;margin:0 auto;line-height:1.7}
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:12px;color:rgba(255,255,255,.3)}
+.breadcrumb a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--red)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+
+.section{padding:clamp(40px,7vw,110px) 5%}
+.section-gray{background:var(--gray-light)}
+.section-dark{background:var(--dark)}
+.section-header{text-align:center;margin-bottom:clamp(32px,5vw,64px)}
+.section-header .label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.section-header h2{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;line-height:1.15}
+.section-header h2 em{font-style:normal;color:var(--red)}
+.section-header p{color:var(--gray);font-size:14px;max-width:520px;margin:12px auto 0;line-height:1.7}
+.red-line{width:50px;height:3px;background:var(--red);border-radius:2px;margin:12px auto 0}
+
+/* ========== WHY JOIN ========== */
+.join-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.join-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.join-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.join-card{text-align:center;padding:clamp(24px,3vw,36px) 20px;border-radius:18px;background:#fff;border:1.5px solid #eee;transition:all .4s;position:relative;overflow:hidden}
+.join-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:var(--red);border-radius:0 0 3px 3px;opacity:0;transition:all .4s}
+.join-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.06);border-color:rgba(229,57,53,.12)}
+.join-card:hover::before{opacity:1;width:100%}
+.join-emoji{font-size:36px;margin-bottom:12px;display:block}
+.join-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.join-card p{font-size:12px;color:var(--gray);line-height:1.6}
+
+/* ========== OPEN POSITIONS ========== */
+.pos-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:768px){.pos-grid{grid-template-columns:repeat(2,1fr)}}
+.pos-card{background:#fff;border:1.5px solid #eee;border-radius:20px;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.pos-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.08);border-color:rgba(229,57,53,.12)}
+.pos-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #f5f5f5}
+.pos-header h3{font-size:16px;font-weight:700;flex:1}
+.pos-type{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:var(--red-light);padding:4px 12px;border-radius:6px}
+.pos-type.urgent{background:var(--red);color:#fff}
+.pos-body{padding:18px 22px;flex:1;display:flex;flex-direction:column}
+.pos-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pos-tags span{font-size:11px;font-weight:600;color:#555;background:#f5f5f5;padding:4px 12px;border-radius:8px}
+.pos-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.pos-detail{text-align:center}
+.pos-detail .pd-val{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#111}
+.pos-detail .pd-lbl{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.pos-apply{margin-top:auto}
+.pos-apply a{display:inline-flex;align-items:center;gap:6px;background:var(--dark);color:#fff;text-decoration:none;padding:11px 22px;border-radius:12px;font-size:12px;font-weight:600;transition:all .3s;box-shadow:0 4px 14px rgba(0,0,0,.1);width:fit-content}
+.pos-apply a:hover{background:var(--red);transform:translateY(-1px);box-shadow:0 8px 20px rgba(229,57,53,.25)}
+.pos-apply a svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== LOOKING FOR ========== */
+.look-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.look-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.look-grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+.look-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:24px;transition:all .4s}
+.look-card:hover{background:rgba(255,255,255,.07);border-color:rgba(229,57,53,.15);transform:translateY(-4px)}
+.look-icon{font-size:32px;margin-bottom:14px;display:block}
+.look-card h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:8px}
+.look-card p{color:rgba(255,255,255,.35);font-size:12px;line-height:1.7}
+
+/* ========== PROCESS ========== */
+.proc-grid{display:grid;grid-template-columns:1fr;gap:0;position:relative;max-width:700px;margin:0 auto}
+.proc-grid::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),rgba(229,57,53,.1));border-radius:2px}
+@media(min-width:640px){.proc-grid::before{left:50%;transform:translateX(-1px)}}
+.proc-item{position:relative;padding-left:56px;margin-bottom:28px}
+@media(min-width:640px){.proc-item{padding-left:0;width:50%;margin-left:0}.proc-item:nth-child(odd){margin-left:50%;padding-left:32px}.proc-item:nth-child(even){padding-right:32px;text-align:right}}
+.proc-dot{position:absolute;left:12px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--red);border:3px solid var(--dark);z-index:2;box-shadow:0 0 0 4px rgba(229,57,53,.15)}
+@media(min-width:640px){.proc-item:nth-child(odd) .proc-dot{left:auto;right:-9px}.proc-item:nth-child(even) .proc-dot{left:-9px}}
+.proc-year{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;color:var(--red);margin-bottom:4px}
+.proc-item h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.proc-item p{font-size:13px;color:var(--gray);line-height:1.7}
+
+/* ========== INTERNSHIP ========== */
+.intern-grid{display:grid;grid-template-columns:1fr;gap:0;border-radius:24px;overflow:hidden;background:#fff;border:1.5px solid #eee;box-shadow:0 4px 30px rgba(0,0,0,.04)}
+@media(min-width:768px){.intern-grid{grid-template-columns:1fr 1fr}}
+.intern-img{position:relative;overflow:hidden;min-height:300px}
+.intern-img img{width:100%;height:100%;object-fit:cover;display:block}
+.intern-badge{position:absolute;top:20px;left:20px;z-index:2;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#fff;background:var(--red);padding:7px 16px;border-radius:10px;box-shadow:0 4px 16px rgba(229,57,53,.3)}
+.intern-body{padding:clamp(28px,5vw,48px);display:flex;flex-direction:column;justify-content:center}
+.intern-body h3{font-size:clamp(20px,3vw,26px);font-weight:700;line-height:1.2;margin-bottom:10px}
+.intern-body .intern-sub{font-size:13px;color:var(--red);font-weight:600;margin-bottom:14px}
+.intern-list{list-style:none;padding:0}
+.intern-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#555;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.intern-list li:last-child{border-bottom:none}
+.intern-list li svg{width:16px;height:16px;stroke:var(--red);stroke-width:2.5;fill:none;flex-shrink:0;margin-top:2px;stroke-linecap:round;stroke-linejoin:round}
+.intern-cta{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;text-decoration:none;padding:13px 24px;border-radius:14px;font-size:13px;font-weight:600;transition:all .3s;box-shadow:0 6px 20px rgba(0,0,0,.1);width:fit-content;margin-top:8px}
+.intern-cta:hover{background:var(--red);transform:translateY(-2px);box-shadow:0 10px 30px rgba(229,57,53,.25)}
+.intern-cta svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== CULTURE ========== */
+.culture-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.culture-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.culture-grid{grid-template-columns:repeat(4,1fr)}}
+.culture-card{text-align:center;padding:clamp(24px,3vw,36px) 20px;border-radius:18px;background:#fff;border:1.5px solid #eee;transition:all .4s;position:relative;overflow:hidden}
+.culture-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:var(--red);border-radius:0 0 3px 3px;opacity:0;transition:all .4s}
+.culture-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.06);border-color:rgba(229,57,53,.12)}
+.culture-card:hover::before{opacity:1;width:100%}
+.culture-emoji{font-size:36px;margin-bottom:14px;display:block}
+.culture-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.culture-card p{font-size:12px;color:var(--gray);line-height:1.7}
+
+/* ========== FAQ ========== */
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:all .3s}
+.faq-item:hover{border-color:rgba(255,255,255,.1)}
+.faq-item.active{border-color:rgba(229,57,53,.2);background:rgba(229,57,53,.03)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;gap:12px}
+.faq-q h4{font-size:14px;font-weight:600;color:#fff;flex:1}
+.faq-q-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px;color:rgba(255,255,255,.4)}
+.faq-item.active .faq-q-icon{background:var(--red);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.faq-a-inner{padding:0 20px 18px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.8}
+
+.cta-section{background:var(--red);position:relative;overflow:hidden;padding:clamp(50px,8vw,100px) 5%;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:20px 20px}
+.cta-section h2{color:#fff;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;margin-bottom:14px;position:relative}
+.cta-section p{color:rgba(255,255,255,.7);font-size:14px;max-width:480px;margin:0 auto 28px;position:relative;line-height:1.7}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--red);text-decoration:none;padding:15px 30px;border-radius:14px;font-size:14px;font-weight:700;transition:all .3s;position:relative}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+
+footer{background:var(--dark);color:#fff;padding:clamp(36px,4vw,60px) 5% 18px}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-logo img{height:30px;filter:brightness(0) invert(1)}
+.footer-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+footer p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7}
+footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;color:rgba(255,255,255,.6)}
+footer ul{list-style:none}footer ul li{margin-bottom:6px}
+footer ul a{color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:color .2s}
+footer ul a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.footer-bottom p{font-size:11px}
+.footer-social{display:flex;gap:6px}
+.footer-social a{width:32px;height:32px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:all .3s}
+.footer-social a:hover{background:var(--red);color:#fff}
+
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:8000;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .3s;text-decoration:none;color:#fff}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float::before{content:'';position:absolute;inset:-5px;border-radius:50%;background:#25D366;animation:waP 2s ease-out infinite;z-index:-1}
+@keyframes waP{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+
+#qModal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:16px}
+#qModal.open{display:flex}
+#qModalBg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+#qModalBox{position:relative;background:#fff;border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:clamp(20px,4vw,32px);box-shadow:0 25px 60px rgba(0,0,0,.2);animation:mIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.q-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.q-close:hover{background:#f5f5f5;color:#333}
+.qf-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:480px){.qf-row.two{grid-template-columns:1fr 1fr}}
+.qf-row label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#444}
+.qf-row input,.qf-row textarea,.qf-row select{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:12px;font-size:13px;font-family:'Inter',sans-serif;background:#fafafa;outline:none;transition:all .3s}
+.qf-row input:focus,.qf-row textarea:focus,.qf-row select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(229,57,53,.06)}
+.qf-row textarea{resize:none;height:80px}
+.qf-row select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.platform-label{font-size:12px;font-weight:600;color:#444;margin-bottom:8px;display:block}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.platform-option{position:relative;cursor:pointer}
+.platform-option input{position:absolute;opacity:0;pointer-events:none}
+.platform-option-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border:2px solid #e8e8e8;border-radius:14px;transition:all .3s;text-align:center;background:#fafafa}
+.platform-option-card:hover{border-color:#ccc;background:#fff}
+.platform-option input:checked+.platform-option-card{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 4px rgba(229,57,53,.08)}
+.platform-option-card .p-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s}
+.platform-option input:checked+.platform-option-card .p-icon{transform:scale(1.1)}
+.p-icon.wa{background:#E8F5E9;color:#25D366}
+.p-icon.vb{background:#F3E5F5;color:#7360F2}
+.p-icon.em{background:#FFF3E0;color:#F57C00}
+.platform-option-card .p-name{font-size:11px;font-weight:700;color:#333}
+.platform-option-card .p-desc{font-size:9px;color:var(--gray);line-height:1.4}
+.platform-option input:checked+.platform-option-card .p-name{color:var(--red)}
+.qf-submit{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 8px 24px rgba(229,57,53,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.qf-submit:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 12px 35px rgba(229,57,53,.35)}
+.qf-submit svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.qf-note{font-size:11px;color:#999;margin-top:10px;text-align:center;line-height:1.6}
+
+#btt{position:fixed;bottom:20px;left:20px;z-index:8000;width:42px;height:42px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;border:none;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+#btt.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#btt:hover{background:var(--red)}
+
+.obs{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.obs.visible{opacity:1;transform:translateY(0)}
+.obs-delay-1{transition-delay:.1s}
+.obs-delay-2{transition-delay:.2s}
+.obs-delay-3{transition-delay:.3s}
+.obs-delay-4{transition-delay:.4s}
+.obs-delay-5{transition-delay:.5s}
+</style>
+</head>
+<body>
+
+<nav id="nav" class="scrolled">
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="RC"><div class="nav-logo-text">Red Creative<small>Maldives</small></div></a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="careers.html" class="nav-link active-link">Careers</a>
+        <a href="#" class="nav-link nav-cta" onclick="openQuote();return false">Get Quote</a>
+    </div>
+    <button class="mob-btn" id="mobBtn" onclick="toggleMob()"><span></span></button>
+</nav>
+
+<div id="mobMenu" onclick="closeMob()">
+    <div id="mobPanel" onclick="event.stopPropagation()">
+        <div class="mob-header">
+            <a href="index.html" class="mob-header-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></a>
+            <button class="mob-close" onclick="closeMob()">✕</button>
+        </div>
+        <div class="mob-body">
+            <a href="index.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+            <a href="services.html" class="mob-link"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Services</a>
+            <a href="about.html" class="mob-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About Us</a>
+            <a href="portfolio.html" class="mob-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Portfolio</a>
+            <a href="team.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Our Team</a>
+            <a href="contact.html" class="mob-link"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Contact</a>
+            <a href="careers.html" class="mob-link active-link"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Careers</a>
+            <div class="mob-divider"></div>
+            <a href="tel:+960XXXXXXXX" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+960 XXXX XXXX</a>
+            <a href="mailto:info@redcreative.mv" class="mob-contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@redcreative.mv</a>
+        </div>
+        <div class="mob-footer">
+            <a href="#" class="mob-link-cta" onclick="openQuote();closeMob();return false"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get a Quote</a>
+        </div>
+    </div>
+</div>
+
+
+<section class="page-hero">
+    <div class="page-hero-media"><img src="https://picsum.photos/seed/redcreative-careers-hero-v3/1920/900" alt="Careers Hero"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="label">Join Our Team</div>
+        <h1>Build Your <em>Career</em></h1>
+        <p>Be part of the Maldives' most innovative printing and fabrication team. We're always looking for talented, passionate people.</p>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a><span>/</span><span style="color:rgba(255,255,255,.55)">Careers</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== WHY JOIN ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">Why Red Creative</div>
+        <h2>Why <em>Join Us</em></h2>
+        <div class="red-line"></div>
+        <p>More than just a job — a place to grow, learn, and make an impact.</p>
+    </div>
+    <div class="join-grid">
+        <div class="join-card obs">
+            <span class="join-emoji">🚀</span>
+            <h4>Career Growth</h4>
+            <p>Clear advancement paths from junior to senior roles with training and mentorship at every level.</p>
+        </div>
+        <div class="join-card obs obs-delay-1">
+            <span class="join-emoji">🔬</span>
+            <h4>Cutting-Edge Tech</h4>
+            <p>Work with the most advanced printing and 3D fabrication technology in the country.</p>
+        </div>
+        <div class="join-card obs obs-delay-2">
+            <span class="join-emoji">🏝️</span>
+            <h4>Impact Work</h4>
+            <p>Your work will be seen by thousands across the Maldives — resorts, businesses, and events.</p>
+        </div>
+        <div class="join-card obs obs-delay-3">
+            <span class="join-emoji">🤝</span>
+            <h4>Family Culture</h4>
+            <p>A supportive, tight-knit team that feels like family — not a corporate machine.</p>
+        </div>
+        <div class="join-card obs obs-delay-4">
+            <span class="join-emoji">📈</span>
+            <h4>Industry Leader</h4>
+            <p>Join the company leading the Maldives printing and signage revolution.</p>
+        </div>
+        <div class="join-card obs obs-delay-5">
+            <span class="join-emoji">💰</span>
+            <h4>Competitive Pay</h4>
+            <p>Fair compensation, overtime pay, performance bonuses, and annual salary reviews.</p>
+        </div>
+        <div class="join-card obs obs-delay-4">
+            <span class="join-emoji">🎓</span>
+            <h4>Learning Never Stops</h4>
+            <p>Regular training on new equipment, materials, and techniques to keep your skills sharp.</p>
+        </div>
+        <div class="join-card obs obs-delay-5">
+            <span class="join-emoji">⚡</span>
+            <h4>Hulhumalé Location</h4>
+            <p>Modern, easy commute from Malé — no traffic stress, beautiful workspace.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== OPEN POSITIONS ========== -->
+<section class="section section-gray">
+    <div class="section-header obs">
+        <div class="label">Now Hiring</div>
+        <h2>Open <em>Positions</em></h2>
+        <div class="red-line"></div>
+        <p>These roles are currently open. Can't find yours? Send your CV anyway — we always keep promising candidates in mind.</p>
+    </div>
+    <div class="pos-grid">
+        <div class="pos-card obs">
+            <div class="pos-header"><h3>Senior Graphic Designer</h3><div class="pos-type">Design</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Hulhumalé</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 10–15K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">3+ Years</div><div class="pd-lbl">Experience</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — Senior Graphic Designer" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+        <div class="pos-card obs obs-delay-1">
+            <div class="pos-header"><h3>Print Operator</h3><div class="pos-type">Production</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Hulhumalé</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 6–8K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">1+ Year</div><div class="pd-lbl">Min Exp</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — Print Operator" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+        <div class="pos-card obs obs-delay-2">
+            <div class="pos-header"><h3>3D Printing Technician</h3><div class="pos-type urgent">Urgent Hire</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Hulhumalé</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 12–18K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">2+ Years</div><div class="pd-lbl">3D Exp Req</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — 3D Printing Technician" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+        <div class="pos-card obs obs-delay-3">
+            <div class="pos-header"><h3>Installation Technician</h3><div class="pos-type">Field Ops</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Island-Wide</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 8–12K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">Physically Fit</div><div class="pd-lbl">Required</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — Installation Technician" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+        <div class="pos-card obs obs-delay-4">
+            <div class="pos-header"><h3>Sales Executive</h3><div class="pos-type">Management</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Hulhumalé</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 10–15K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">2+ Years</div><div class="pd-lbl">Sales Exp</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — Sales Executive" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+        <div class="pos-card obs obs-delay-5">
+            <div class="pos-header"><h3>Delivery Coordinator</h3><div class="pos-type">Logistics</div></div>
+            <div class="pos-body">
+                <div class="pos-tags"><span>Full-Time</span><span>Hulhumalé</span></div>
+                <div class="pos-details">
+                    <div class="pos-detail"><div class="pd-val">MVR 7–10K</div><div class="pd-lbl">Monthly</div></div>
+                    <div class="pos-detail"><div class="pd-val">Good Network</div><div class="pd-lbl">Advantage</div></div>
+                </div>
+                <div class="pos-apply"><a href="mailto:careers@redcreative.mv?subject=Application — Delivery Coordinator" onclick="closeMob()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Apply Now</a></div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:28px" class="obs">
+        <p style="font-size:13px;color:var(--gray);line-height:1.6">Don't see your role? <a href="mailto:careers@redcreative.mv?subject=General Application" style="color:var(--red);font-weight:600;text-decoration:none">Send your CV anyway →</a></p>
+    </div>
+</section>
+
+
+<!-- ========== WHAT WE LOOK FOR ========== -->
+<section class="section section-dark">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Ideal Candidate</div>
+        <h2 style="color:#fff">What We <em style="color:var(--red)">Look For</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="look-grid">
+        <div class="look-card obs">
+            <span class="look-icon">🎯</span>
+            <h4>Passion for Craft</h4>
+            <p>You genuinely care about quality, detail, and the final product — not just completing tasks.</p>
+        </div>
+        <div class="look-card obs obs-delay-1">
+            <span class="look-icon">💡</span>
+            <h4>Problem Solver</h4>
+            <p>You think creatively and find solutions when faced with design or production challenges.</p>
+        </div>
+        <div class="look-card obs obs-delay-2">
+            <span class="look-icon">📋</span>
+            <h4>Attention to Detail</h4>
+            <p>Small mistakes bother you and you double-check your work before delivery.</p>
+        </div>
+        <div class="look-card obs obs-delay-3">
+            <span class="look-icon">⏱️</span>
+            <h4>Reliability</h4>
+            <p>You show up on time, every time, without excuses. Deadlines matter to you.</p>
+        </div>
+        <div class="look-card obs obs-delay-4">
+            <span class="look-icon">🤝</span>
+            <h4>Team Player</h4>
+            <p>You collaborate well with designers, technicians, and clients in a fast-paced environment.</p>
+        </div>
+        <div class="look-card obs obs-delay-5">
+            <span class="look-icon">📚</span>
+            <h4>Eagerness to Learn</h4>
+            <p>You're excited to master new tools, materials, and techniques as the industry evolves.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== APPLICATION PROCESS ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">How to Apply</div>
+        <h2>Application <em>Process</em></h2>
+        <div class="red-line"></div>
+        <p>Simple and transparent — no lengthy forms, no gatekeepers.</p>
+    </div>
+    <div class="proc-grid obs">
+        <div class="proc-item">
+            <div class="proc-dot"></div>
+            <div class="proc-year">STEP 01</div>
+            <h4>Send Your CV</h4>
+            <p>Email your CV to careers@redcreative.mv with the role in the subject. Include a brief intro about yourself.</p>
+        </div>
+        <div class="proc-item obs obs-delay-1">
+            <div class="proc-dot"></div>
+            <div class="proc-year">STEP 02</div>
+            <h4>Portfolio Review</h4>
+            <p>We review your portfolio and assess your fit for the role. You may be asked for a short trial task.</p>
+        </div>
+        <div class="proc-item obs obs-delay-2">
+            <div class="proc-dot"></div>
+            <div class="proc-year">STEP 03</div>
+            <h4>Interview</h4>
+            <p>A relaxed conversation about your experience, goals, and what you'd bring to the team.</p>
+        </div>
+        <div class="proc-item obs obs-delay-3">
+            <div class="proc-dot"></div>
+            <div class="proc-year">STEP 04</div>
+            <h4>Offer Letter</h4>
+            <p>If we're aligned, you'll receive a formal offer with compensation details and start date.</p>
+        </div>
+        <div class="proc-item obs obs-delay-4">
+            <div class="proc-dot"></div>
+            <div class="proc-year">STEP 05</div>
+            <h4>Onboarding</h4>
+            <p>Structured orientation, equipment training, and buddy system from day one.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== INTERNSHIP ========== -->
+<section class="section section-gray">
+    <div class="intern-grid obs" style="max-width:960px;margin:0 auto">
+        <div class="intern-img">
+            <img src="https://picsum.photos/seed/careers-intern-workshop-mv/800/600" alt="Internship">
+            <div class="intern-badge">🎓 Internship Program</div>
+        </div>
+        <div class="intern-body">
+            <div class="intern-sub">Learn &amp; Launch Your Career</div>
+            <h3>Internship Program</h3>
+            <p>Our internship program is designed for students and fresh graduates who want real-world experience in the printing and fabrication industry. Perfect for building your portfolio and deciding your career direction.</p>
+            <ul class="intern-list">
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span><strong>3–6 month</strong><br>Duration</span></li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Hands-on</strong><br>Practical training on real projects</span></li>
+            </ul>
+            <p style="font-size:12px;color:var(--gray);margin-bottom:4px">Open to Design, Production, and 3D Printing tracks.</p>
+            <a href="mailto:careers@redcreative.mv?subject=Internship Application" class="intern-cta" onclick="closeMob()">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Apply for Internship →
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CULTURE ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">Daily Life</div>
+        <h2>Our Work <em>Culture</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="culture-grid">
+        <div class="culture-card obs">
+            <span class="culture-emoji">☀️</span>
+            <h4>Morning Huddle</h4>
+            <p>Daily 15-minute team sync over tea to align priorities and celebrate wins together.</p>
+        </div>
+        <div class="culture-card obs obs-delay-1">
+            <span class="culture-emoji">🎯</span>
+            <h4>Quality First</h4>
+            <p>Every piece goes through multiple quality checks. We never compromise on output quality.</p>
+        </div>
+        <div class="culture-card obs obs-delay-2">
+            <span class="culture-emoji">🗣️</span>
+            <h4>Open Communication</h4>
+            <p>Flat hierarchy — anyone can suggest ideas directly to the CEO or managers.</p>
+        </div>
+        <div class="culture-card obs obs-delay-3">
+            <span class="culture-emoji">🎉</span>
+            <h4>Celebrate Wins</h4>
+            <p>Every project completion is acknowledged. Big or small, every win matters.</p>
+        </div>
+        <div class="culture-card obs obs-delay-4">
+            <span class="culture-emoji">🔧</span>
+            <h4>Continuous Improvement</h4>
+            <p>Weekly retrospectives to identify what we can do better as a team and as individuals.</p>
+        </div>
+        <div class="culture-card obs obs-delay-5">
+            <span class="culture-emoji">🍵</span>
+            <h4>Work-Life Balance</h4>
+            <p>We respect personal time. Overtime is paid, never expected or guilt-driven.</p>
+        </div>
+        <div class="culture-card obs obs-delay-4">
+            <span class="culture-emoji">🏛️</span>
+            <h4>Ethical Business</h4>
+            <p>Honest pricing, honest timelines, and transparent communication with every client.</p>
+        </div>
+        <div class="culture-card obs obs-delay-5">
+            <span class="culture-emoji">🏆</span>
+            <h4>Recognition</h4>
+            <p>Employee of the month awards, performance bonuses, and annual team celebrations.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section class="section section-dark" style="border-top:1px solid rgba(255,255,255,.04)">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Common Questions</div>
+        <h2 style="color:#fff">Careers <em style="color:var(--red)">FAQ</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item obs" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Do I need experience to apply?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner">It depends on the role. For entry-level positions like Print Operator, 6 months of basic experience or a related certificate is enough. For senior roles like Senior Designer or 3D Technician, we look for 2+ years of proven experience. Fresh graduates are welcome to apply for internships and junior positions.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-1" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>What should I include in my CV?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner>Your CV/resume, a brief cover letter stating your interest and the role, and a portfolio or work samples where applicable. For production roles, mention specific machines or software you've used. Keep it clean and well-organized — it's the first impression we have of you.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-2" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Is there a probation period?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner>Yes — there's a 3-month probation period for new hires. During this time, both you and the company evaluate fit. Regular check-ins ensure you're supported. 95% of our team passes with flying colors.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-3" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Can I apply if I'm from another atoll?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner>Absolutely. We've hired team members from Addu, Fuvahmulah, Gaafu Alif, and beyond. For non-Hulhumalé residents, we discuss relocation support on a case-by-case basis.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-4" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>Is there career growth?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner>Yes — we have clear advancement paths: Junior → Mid → Senior → Lead. We promote from within based on skill growth, initiative, and tenure. Senior team members mentor juniors. Some move into management. It's a merit-based system.</div></div>
+        </div>
+        <div class="faq-item obs obs-delay-5" onclick="toggleFaq(this)">
+            <div class="faq-q"><h4>What benefits do you offer?</h4><div class="faq-q-icon">+</div></div>
+            <div class="faq-a"><div class="faq-a-inner>Competitive salary, overtime pay, annual bonus, Eid bonus, paid annual leave, medical insurance, training budget, uniform provided, team outings, and free tea and snacks daily.</div></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <h2>Your Next Chapter Starts Here</h2>
+    <p>Don't wait for the perfect moment — the best time to apply is now.</p>
+    <a href="mailto:careers@redcreative.mv?subject=General Career Application" class="btn-white" onclick="closeMob()">Send Your CV →</a>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></div>
+            <p>The leading printing and signage solutions provider in the Maldives since 2018. Trusted by 1000+ clients.</p>
+        </div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Canvas Printing</a></li><li><a href="services.html">Sticker &amp; Labels</a></li><li><a href="services.html">Signboards</a></li><li><a href="services.html">3D Printing</a></li><li><a href="services.html">Installation</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="#" onclick="openQuote();return false">Get a Quote</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Red Creative Maldives. All rights reserved.</p>
+        <div class="footer-social"><a href="#" title="Instagram">📷</a><a href="#" title="Facebook">📘</a></div>
+    </div>
+</footer>
+
+
+<!-- ========== QUOTE MODAL ========== -->
+<div id="qModal">
+    <div id="qModalBg" onclick="closeQuote()"></div>
+    <div id="qModalBox">
+        <button class="q-close" onclick="closeQuote()">✕</button>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Request a Quote</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.5">We'll respond within 24 hours via your preferred platform.</p>
+        <form onsubmit="handleQuote(event)">
+            <div class="qf-row two"><div><label>Name *</label><input type="text" id="qName" required placeholder="Your name"></div><div><label>Phone</label><input type="tel" id="qPhone" placeholder="+960 XXXX XXXX"></div></div>
+            <div class="qf-row"><label>Email</label><input type="email" id="qEmail" placeholder="your@email.com"></div>
+            <div class="qf-row"><label>Service *</label><select id="qService" required><option value="" disabled selected>Select service</option><option>Canvas Printing</option><option>Sticker Printing</option><option>Label Printing</option><option>Poster & Leaflet Printing</option><option>CNC Cutting</option><option>Signboards & Signage</option><option>Election Campaign Materials</option><option>3D Printing</option><option>Awards & Custom Fabrication</option><option>On-site Installation</option><option>Island-wide Delivery</option></select></div>
+            <div class="qf-row"><label>Details *</label><textarea id="qDetails" required placeholder="Describe your project..." style="height:90px"></textarea></div>
+            <label class="platform-label">How should we reply? *</label>
+            <div class="platform-grid">
+                <label class="platform-option"><input type="radio" name="platform" value="whatsapp" checked><div class="platform-option-card"><div class="p-icon wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div class="p-name">WhatsApp</div><div class="p-desc">Instant reply</div></div></label>
+                <label class="platform-option"><input type="radio" name="platform" value="viber"><div class="platform-option-card"><div class="p-icon vb"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="p-name">Viber</div><div class="p-desc">Chat &amp; calls</div></div></label>
+                <label class="platform-option"><input type="radio" name="platform" value="email"><div class="platform-option-card"><div class="p-icon em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="p-name">Email</div><div class="p-desc">Formal reply</div></div></label>
+            </div>
+            <button type="submit" class="qf-submit" id="qSubmitBtn"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg><span id="qSubmitText">Send via WhatsApp</span></button>
+            <p class="qf-note" id="qSubmitNote">Opens WhatsApp with your pre-filled quote request.</p>
+        </form>
+    </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/960XXXXXXXX?text=Hi%20Red%20Creative%2C%20I%27d%20like%20to%20inquire%20about%20your%20printing%20services." target="_blank" class="wa-float" title="Chat on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ===== NAV =====
+const nav=document.getElementById('nav'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{if(scrollY>60){nav.classList.add('scrolled')}else{nav.classList.add('scrolled')}btt.classList.toggle('show',scrollY>500)});
+nav.classList.add('scrolled');
+
+// ===== MOBILE MENU =====
+const mobBtn=document.getElementById('mobBtn');
+function toggleMob(){document.getElementById('mobMenu').classList.add('open');document.body.style.overflow='hidden';mobBtn.classList.add('active')}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');document.body.style.overflow='';mobBtn.classList.remove('active')}
+
+// ===== QUOTE MODAL =====
+function openQuote(svc){document.getElementById('qModal').classList.add('open');document.body.style.overflow='hidden';if(svc){const s=document.getElementById('qService');for(let o of s.options)if(o.text===svc){s.value=o.value;break}}}
+function closeQuote(){document.getElementById('qModal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
+
+// ===== DYNAMIC SUBMIT =====
+const platformRadios=document.querySelectorAll('input[name="platform"]'),submitText=document.getElementById('qSubmitText'),submitNote=document.getElementById('qSubmitNote'),submitBtn=document.getElementById('qSubmitBtn');
+const cfg={whatsapp:{text:'Send via WhatsApp',note:'Opens WhatsApp with your pre-filled quote request.',color:'#25D366',dark:'#128C7E'},viber:{text:'Send via Viber',note:'Opens Viber with your pre-filled quote request.',color:'#7360F2',dark:'#5B47C7'},email:{text:'Send via Email',note:'Opens your email app with a pre-filled quote request.',color:'#F57C00',dark:'#E65100'}};
+function updateBtn(){const v=document.querySelector('input[name="platform"]:checked').value,c=cfg[v];submitText.textContent=c.text;submitNote.textContent=c.note;submitBtn.style.background=c.color;submitBtn.style.boxShadow='0 8px 24px '+c.color+'40';submitBtn.onmouseenter=()=>{submitBtn.style.background=c.dark;submitBtn.style.transform='translateY(-1px)'};submitBtn.onmouseleave=()=>{submitBtn.style.background=c.color;submitBtn.style.transform='translateY(0)'}}
+platformRadios.forEach(r=>r.addEventListener('change',updateBtn));updateBtn();
+
+function handleQuote(e){e.preventDefault();const n=document.getElementById('qName').value,s=document.getElementById('qService').value,d=document.getElementById('qDetails').value,p=document.getElementById('qPhone').value,em=document.getElementById('qEmail').value,pl=document.querySelector('input[name="platform"]:checked').value;const b=`📋 *Quote Request — Red Creative*%0A%0A👤 Name: ${n}%0A📞 Phone: ${p||'N/A'}%0A✉️ Email: ${em||'N/A'}%0A🔧 Service: ${s}%0A📝 Details: ${d}`,bp='Quote Request — Red Creative\n\nName: '+n+'\nPhone: '+(p||'N/A')+'\nEmail: '+(em||'N/A')+'\nService: '+s+'\nDetails: '+d;if(pl==='whatsapp')window.open('https://wa.me/960XXXXXXXX?text='+b,'_blank');else if(pl==='viber')window.open('viber://chat?number=960XXXXXXXX&text='+encodeURIComponent(bp),'_blank');else window.location.href='mailto:info@redcreative.mv?subject='+encodeURIComponent('Quote Request — '+s)+'&body='+encodeURIComponent(bp);closeQuote()}
+
+// ===== FAQ =====
+function toggleFaq(item){const w=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('active');i.querySelector('.faq-a').style.maxHeight=null});if(!w){item.classList.add('active');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px'}}
+
+// ===== OBSERVER =====
+const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target)}})},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.obs').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Creative | Printing & Signage Maldives</title>
+<link rel="icon" type="image/png" href="./image.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#E53935;--red-dark:#C62828;--red-light:#FFEBEE;--dark:#0A0A0A;--dark2:#141414;--dark3:#1E1E1E;--gray:#777;--gray-light:#F7F7F7;--white:#fff}
+body{font-family:'Inter',sans-serif;background:var(--white);color:#111;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--red);border-radius:9px}
+
+/* ========== PRELOADER ========== */
+#preloader{position:fixed;inset:0;z-index:99999;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s cubic-bezier(.4,0,.2,1),transform 1s cubic-bezier(.4,0,.2,1)}
+#preloader.done{opacity:0;transform:scale(1.08);pointer-events:none}
+.pre-stage{position:relative;margin-bottom:2.5rem}
+.pre-logo{width:clamp(90px,18vw,140px);height:clamp(90px,18vw,140px);object-fit:contain;filter:brightness(0) invert(1);animation:preReveal 1.2s cubic-bezier(.34,1.56,.64,1) forwards;position:relative;z-index:2}
+@keyframes preReveal{0%{opacity:0;transform:scale(.4) rotate(-10deg);filter:brightness(0) invert(1) blur(10px)}60%{opacity:1;transform:scale(1.05) rotate(1deg);filter:brightness(0) invert(1) blur(0)}100%{opacity:1;transform:scale(1) rotate(0);filter:brightness(0) invert(1) blur(0)}}
+.pre-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(229,57,53,.12);animation:ringGrow 2s ease forwards;opacity:0}
+.pre-ring:nth-child(2){inset:-25px;animation-delay:.3s}
+.pre-ring:nth-child(3){inset:-50px;animation-delay:.5s;border-color:rgba(229,57,53,.06)}
+.pre-ring:nth-child(4){inset:-80px;animation-delay:.7s;border-color:rgba(229,57,53,.03)}
+@keyframes ringGrow{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.pre-name{display:flex;overflow:hidden;height:clamp(32px,6vw,52px);margin-bottom:.6rem}
+.pre-char{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5.5vw,44px);font-weight:700;color:var(--red);opacity:0;transform:translateY(100%);animation:charSlide .6s cubic-bezier(.34,1.56,.64,1) forwards}
+.pre-char.space{width:clamp(5px,1.2vw,12px)}
+@keyframes charSlide{to{opacity:1;transform:translateY(0)}}
+.pre-sub{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.2);opacity:0;animation:fadeUp .6s ease 1.8s forwards}
+.pre-bar{width:clamp(160px,28vw,260px);height:1.5px;background:rgba(255,255,255,.05);border-radius:2px;margin-top:1.5rem;overflow:hidden;opacity:0;animation:fadeUp .4s ease 1.4s forwards}
+.pre-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),#FF5252);border-radius:2px;animation:fillBar 1.8s ease 1.6s forwards}
+@keyframes fillBar{to{width:100%}}
+@keyframes fadeUp{to{opacity:1}}
+
+/* ========== NAV ========== */
+#nav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;justify-content:space-between;padding:.6rem 5%;height:62px;background:transparent;transition:all .5s cubic-bezier(.4,0,.2,1)}
+#nav.scrolled{background:rgba(255, 255, 255, 0.604);backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#ffffff00;transition:all .4s;z-index:2}
+#nav.scrolled .nav-logo{color:#000000}
+.nav-logo img{height:38px;width:38px;object-fit:contain;filter:brightness(0) invert(1);transition:filter .3s}
+#nav.scrolled .nav-logo img{filter:none}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1.1}
+.nav-logo-text small{display:block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;font-weight:400;font-family:'Inter',sans-serif}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{text-decoration:none;color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .3s}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+#nav.scrolled .nav-link{color:#555}
+#nav.scrolled .nav-link:hover{color:#111;background:rgba(0,0,0,.04)}
+.nav-link.active-link{color:var(--red)!important;background:rgba(229,57,53,.08)!important}
+#nav.scrolled .nav-link.active-link{background:var(--red-light)!important}
+.nav-cta{background:var(--red)!important;color:#ffffff08!important;padding:9px 22px!important;border-radius:20px!important;font-weight:600!important;box-shadow:0 4px 18px rgba(229,57,53,.3);text-decoration:none;transition:all .3s!important}
+.nav-cta:hover{background:var(--red-dark)!important;transform:translateY(-1px);box-shadow:0 8px 25px rgba(229,57,53,.4)}
+
+/* Hamburger */
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:2;position:relative;width:40px;height:40px;align-items:center;justify-content:center}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;position:relative;transition:all .35s cubic-bezier(.4,0,.2,1);border-radius:2px}
+.mob-btn span::before,.mob-btn span::after{content:'';position:absolute;left:0;width:100%;height:100%;background:#fff;border-radius:2px;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.mob-btn span::before{top:-7px}
+.mob-btn span::after{top:7px}
+#nav.scrolled .mob-btn span,#nav.scrolled .mob-btn span::before,#nav.scrolled .mob-btn span::after{background:#111}
+.mob-btn.active span{background:transparent}
+.mob-btn.active span::before{top:0;transform:rotate(45deg);background:#111}
+.mob-btn.active span::after{top:0;transform:rotate(-45deg);background:#111}
+
+/* Mobile Menu Panel */
+#mobMenu{position:fixed;inset:0;z-index:8999;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+#mobMenu.open{opacity:1;pointer-events:auto}
+#mobPanel{position:absolute;top:0;right:0;width:min(320px,88vw);height:100%;background:#fff;padding:0;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+#mobMenu.open #mobPanel{transform:translateX(0)}
+.mob-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.mob-header-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#111}
+.mob-header-logo img{height:32px;object-fit:contain}
+.mob-header-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+.mob-close{background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mob-close:hover{background:#f5f5f5;color:#111}
+.mob-body{flex:1;padding:8px 12px;overflow-y:auto}
+.mob-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#333;font-size:15px;font-weight:500;padding:14px 12px;border-radius:12px;transition:all .2s;margin-bottom:2px}
+.mob-link:hover{color:var(--red);background:var(--red-light)}
+.mob-link.active-link{color:var(--red);background:var(--red-light);font-weight:600}
+.mob-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.mob-link.active-link svg{opacity:1}
+.mob-divider{height:1px;background:#f0f0f0;margin:8px 12px}
+.mob-footer{padding:16px 12px;border-top:1px solid #f0f0f0;flex-shrink:0}
+.mob-link-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff!important;text-align:center;padding:14px;border-radius:14px;font-weight:600;text-decoration:none;font-size:15px;transition:all .3s;box-shadow:0 4px 16px rgba(229,57,53,.25)}
+.mob-link-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
+.mob-link-cta svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;opacity:1}
+.mob-contact-row{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;color:var(--gray);text-decoration:none;border-radius:10px;transition:all .2s;margin-top:4px}
+.mob-contact-row:hover{background:#f8f8f8;color:#333}
+.mob-contact-row svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.5}
+
+@media(max-width:900px){
+    .nav-links{display:none}
+    .mob-btn{display:flex}
+}
+
+/* ========== HERO ========== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.65) 40%,rgba(229,57,53,.15) 100%)}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:3;padding:0 5%;max-width:720px;padding-top:62px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(229,57,53,.12);border:1px solid rgba(229,57,53,.2);color:#FF8A80;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border-radius:30px;margin-bottom:24px;animation:fadeUp .6s ease .4s both}
+.hero-badge-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-size:clamp(2rem,6vw,4.2rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:20px;animation:fadeUp .7s ease .55s both}
+.hero h1 em{font-style:normal;color:var(--red);position:relative}
+.hero h1 em::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:3px;background:var(--red);border-radius:2px;opacity:.4}
+.hero>p{color:rgba(255,255,255,.45);font-size:clamp(13px,1.6vw,17px);line-height:1.7;margin-bottom:32px;animation:fadeUp .7s ease .7s both;max-width:500px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;animation:fadeUp .7s ease .85s both}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;text-decoration:none;padding:15px 28px;border-radius:14px;font-size:14px;font-weight:600;transition:all .3s;box-shadow:0 8px 28px rgba(229,57,53,.3)}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 12px 40px rgba(229,57,53,.4)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;text-decoration:none;padding:15px 28px;border-radius:14px;font-size:14px;font-weight:600;transition:all .3s}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.07);animation:fadeUp .7s ease 1s both}
+@media(min-width:640px){.hero-stats{grid-template-columns:repeat(4,1fr);gap:16px 32px}}
+.hero-stat-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,42px);font-weight:700;color:#fff;line-height:1}
+.hero-stat-num span{color:var(--red)}
+.hero-stat-label{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+.hero-float{position:absolute;bottom:clamp(30px,5vw,60px);right:5%;z-index:3;background:rgba(255,255,255,.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px 24px;animation:fadeUp 1s ease 1.3s both;display:none}
+@media(min-width:1024px){.hero-float{display:block}}
+.hero-float img{height:32px;filter:brightness(0) invert(1);margin-bottom:8px}
+.hero-float strong{color:#fff;font-size:14px;display:block}
+.hero-float p{color:rgba(255,255,255,.45);font-size:11px;margin:0;animation:none;opacity:1}
+.hero-scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.2);animation:fadeUp 1s ease 1.5s both}
+.hero-scroll span{font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.hero-scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);animation:scrollLine 2s ease infinite}
+@keyframes scrollLine{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1);transform-origin:top}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+
+/* ========== SECTIONS ========== */
+.section{padding:clamp(40px,7vw,110px) 5%}
+.section-gray{background:var(--gray-light)}
+.section-dark{background:var(--dark)}
+.section-header{text-align:center;margin-bottom:clamp(32px,5vw,64px)}
+.section-header .label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.section-header h2{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;line-height:1.15}
+.section-header h2 em{font-style:normal;color:var(--red)}
+.section-header p{color:var(--gray);font-size:14px;max-width:520px;margin:12px auto 0;line-height:1.7}
+.red-line{width:50px;height:3px;background:var(--red);border-radius:2px;margin:12px auto 0}
+
+/* ========== SERVICES ========== */
+.svc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.svc-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.svc-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.svc-card{position:relative;border-radius:18px;overflow:hidden;cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.svc-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(229,57,53,.1)}
+.svc-card img{width:100%;height:240px;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+@media(min-width:640px){.svc-card img{height:280px}}
+.svc-card:hover img{transform:scale(1.08)}
+.svc-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.85) 0%,rgba(10,10,10,.2) 50%,transparent 100%);transition:background .4s}
+.svc-card:hover .svc-card-overlay{background:linear-gradient(to top,rgba(10,10,10,.9) 0%,rgba(10,10,10,.3) 60%,rgba(10,10,10,.1) 100%)}
+.svc-card-content{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.svc-card-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:rgba(229,57,53,.15);padding:4px 10px;border-radius:5px;margin-bottom:8px}
+.svc-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.svc-card p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .4s;opacity:0;margin-bottom:0}
+.svc-card:hover p{max-height:100px;opacity:1;margin-bottom:12px}
+.svc-card-cta{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:.05em;transition:all .3s}
+.svc-card:hover .svc-card-cta{color:#fff;gap:10px}
+.svc-card-cta::after{content:'→';transition:transform .3s}
+.svc-card:hover .svc-card-cta::after{transform:translateX(3px)}
+
+/* ========== TRUST / STATS ========== */
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.trust-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.trust-card{text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:clamp(18px,3vw,32px);transition:all .4s}
+.trust-card:hover{background:rgba(255,255,255,.07);border-color:rgba(229,57,53,.2);transform:translateY(-4px)}
+.trust-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:700;color:#fff;line-height:1}
+.trust-num span{color:var(--red)}
+.trust-label{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.12em;margin-top:6px}
+
+/* ========== TESTIMONIALS ========== */
+.test-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.test-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:900px){.test-grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+.test-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:24px;transition:all .4s}
+.test-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1)}
+.test-stars{color:#FFD600;font-size:13px;margin-bottom:14px;letter-spacing:2px}
+.test-text{color:rgba(255,255,255,.45);font-size:13px;line-height:1.8;margin-bottom:18px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.1)}
+.test-name{color:#fff;font-size:13px;font-weight:600}
+.test-role{color:rgba(255,255,255,.3);font-size:11px}
+
+/* ========== MARQUEE ========== */
+.marquee-section{overflow:hidden;padding:clamp(24px,4vw,50px) 0;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
+.marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content}
+.marquee-item{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,5vw,4rem);font-weight:700;color:rgba(255,255,255,.04);white-space:nowrap;padding:0 30px;-webkit-text-stroke:1px rgba(255,255,255,.06)}
+.marquee-item span{color:rgba(229,57,53,.12)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ========== SHOWCASE ========== */
+.showcase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:768px){.showcase-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+.showcase-item{border-radius:14px;overflow:hidden;position:relative;cursor:pointer}
+.showcase-item:nth-child(1){grid-row:span 2}
+.showcase-item img{width:100%;height:100%;object-fit:cover;display:block;min-height:140px;transition:transform .6s}
+@media(min-width:768px){.showcase-item img{min-height:180px}}
+.showcase-item:hover img{transform:scale(1.06)}
+.showcase-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.4),transparent 50%);opacity:0;transition:opacity .3s}
+.showcase-item:hover::after{opacity:1}
+
+/* ========== WHY CHOOSE ========== */
+.why-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.why-grid{grid-template-columns:1fr 1fr;gap:14px}}
+.why-card{border-radius:18px;overflow:hidden;position:relative;min-height:220px;cursor:pointer}
+.why-card img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;transition:transform .6s}
+.why-card:hover img{transform:scale(1.05)}
+.why-card-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 60%);z-index:1}
+.why-card-content{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.why-card-tag{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.why-card h3{color:#fff;font-size:17px;font-weight:700}
+.why-card p{color:rgba(255,255,255,.4);font-size:12px;margin-top:4px}
+.why-card-wide{grid-column:1/-1;min-height:200px}
+@media(min-width:640px){.why-card-wide{min-height:220px}}
+.why-badge{position:absolute;bottom:20px;right:20px;z-index:3;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 18px;text-align:center}
+.why-badge .num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#fff}
+.why-badge .lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em}
+
+/* ========== CTA ========== */
+.cta-section{background:var(--red);position:relative;overflow:hidden;padding:clamp(50px,8vw,100px) 5%;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:20px 20px}
+.cta-section h2{color:#fff;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;margin-bottom:14px;position:relative}
+.cta-section p{color:rgba(255,255,255,.7);font-size:14px;max-width:480px;margin:0 auto 28px;position:relative;line-height:1.7}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--red);text-decoration:none;padding:15px 30px;border-radius:14px;font-size:14px;font-weight:700;transition:all .3s;position:relative}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+
+/* ========== FOOTER ========== */
+footer{background:var(--dark);color:#fff;padding:clamp(36px,4vw,60px) 5% 18px}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:28px}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-logo img{height:30px;filter:brightness(0) invert(1)}
+.footer-logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem}
+footer p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7}
+footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;color:rgba(255,255,255,.6)}
+footer ul{list-style:none}footer ul li{margin-bottom:6px}
+footer ul a{color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:color .2s}
+footer ul a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.footer-bottom p{font-size:11px}
+.footer-social{display:flex;gap:6px}
+.footer-social a{width:32px;height:32px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:all .3s}
+.footer-social a:hover{background:var(--red);color:#fff}
+
+/* ========== WHATSAPP ========== */
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:8000;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.35);transition:all .3s;text-decoration:none;color:#fff}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float::before{content:'';position:absolute;inset:-5px;border-radius:50%;background:#25D366;animation:waP 2s ease-out infinite;z-index:-1}
+@keyframes waP{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+
+/* ========== QUOTE MODAL ========== */
+#qModal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:16px}
+#qModal.open{display:flex}
+#qModalBg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+#qModalBox{position:relative;background:#fff;border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:clamp(20px,4vw,32px);box-shadow:0 25px 60px rgba(0,0,0,.2);animation:mIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.q-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#999;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.q-close:hover{background:#f5f5f5;color:#333}
+.qf-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:480px){.qf-row.two{grid-template-columns:1fr 1fr}}
+.qf-row label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#444}
+.qf-row input,.qf-row textarea,.qf-row select{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:12px;font-size:13px;font-family:'Inter',sans-serif;background:#fafafa;outline:none;transition:all .3s}
+.qf-row input:focus,.qf-row textarea:focus,.qf-row select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(229,57,53,.06)}
+.qf-row textarea{resize:none;height:80px}
+.qf-row select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+
+/* Platform Selector */
+.platform-label{font-size:12px;font-weight:600;color:#444;margin-bottom:8px;display:block}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.platform-option{position:relative;cursor:pointer}
+.platform-option input{position:absolute;opacity:0;pointer-events:none}
+.platform-option-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border:2px solid #e8e8e8;border-radius:14px;transition:all .3s;text-align:center;background:#fafafa}
+.platform-option-card:hover{border-color:#ccc;background:#fff}
+.platform-option input:checked+.platform-option-card{border-color:var(--red);background:var(--red-light);box-shadow:0 0 0 4px rgba(229,57,53,.08)}
+.platform-option-card .p-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s}
+.platform-option input:checked+.platform-option-card .p-icon{transform:scale(1.1)}
+.p-icon.wa{background:#E8F5E9;color:#25D366}
+.p-icon.vb{background:#F3E5F5;color:#7360F2}
+.p-icon.em{background:#FFF3E0;color:#F57C00}
+.platform-option-card .p-name{font-size:12px;font-weight:700;color:#333}
+.platform-option-card .p-desc{font-size:10px;color:var(--gray);line-height:1.4}
+.platform-option input:checked+.platform-option-card .p-name{color:var(--red)}
+
+.qf-submit{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 8px 24px rgba(229,57,53,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.qf-submit:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 12px 35px rgba(229,57,53,.35)}
+.qf-submit svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.qf-note{font-size:11px;color:#999;margin-top:10px;text-align:center;line-height:1.6}
+
+/* ========== BACK TO TOP ========== */
+#btt{position:fixed;bottom:20px;left:20px;z-index:8000;width:42px;height:42px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;border:none;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+#btt.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#btt:hover{background:var(--red)}
+
+/* ========== OBSERVE ========== */
+.obs{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.obs.visible{opacity:1;transform:translateY(0)}
+.obs-delay-1{transition-delay:.1s}
+.obs-delay-2{transition-delay:.2s}
+.obs-delay-3{transition-delay:.3s}
+</style>
+</head>
+<body>
+
+<!-- ========== PRELOADER ========== -->
+<div id="preloader">
+    <div class="pre-stage">
+        <img src="./image.png" alt="Red Creative" class="pre-logo">
+        <div class="pre-ring" style="inset:-25px"></div>
+        <div class="pre-ring" style="inset:-50px"></div>
+        <div class="pre-ring" style="inset:-80px"></div>
+        
+    </div>
+    <div class="pre-name" id="preName"></div>
+    <div class="pre-sub">Printing &amp;Solutions</div>
+    <div class="pre-bar"><div class="pre-fill"></div></div>
+</div>
+
+<!-- ========== NAV ========== -->
+<nav id="nav">
+    <a href="index.html" class="nav-logo">
+        <img src="./image.png" alt="RC">
+        <div class="nav-logo-text">Red Creatic<small>Maldives</small></div>
+    </a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link active-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="#" class="nav-link nav-cta" onclick="openQuote();return false">Get Quote</a>
+    </div>
+    <button class="mob-btn" id="mobBtn" onclick="toggleMob()">
+        <span></span>
+    </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobMenu" onclick="closeMob()">
+    <div id="mobPanel" onclick="event.stopPropagation()">
+        <div class="mob-header">
+            <a href="index.html" class="mob-header-logo">
+                <img src="./image.png" alt="RC">
+                <span>Red Creative</span>
+            </a>
+            <button class="mob-close" onclick="closeMob()">✕</button>
+        </div>
+        <div class="mob-body">
+            <a href="index.html" class="mob-link active-link">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </a>
+            <a href="services.html" class="mob-link">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                Services
+            </a>
+            <a href="about.html" class="mob-link">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                About Us
+            </a>
+            <a href="portfolio.html" class="mob-link">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Portfolio
+            </a>
+            <a href="team.html" class="mob-link">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Our Team
+            </a>
+            <a href="contact.html" class="mob-link">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Contact
+            </a>
+            <div class="mob-divider"></div>
+            <a href="tel:+960XXXXXXXX" class="mob-contact-row">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                +960 XXXX XXXX
+            </a>
+            <a href="mailto:info@redcreative.mv" class="mob-contact-row">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                info@redcreative.mv
+            </a>
+        </div>
+        <div class="mob-footer">
+            <a href="#" class="mob-link-cta" onclick="openQuote();closeMob();return false">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Get a Quote
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="hero-media">
+        <img src="./Canvas image.jpg" alt="Hero Background">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+        <h1>Leading Printing &amp; <em>Signage Solutions</em> in Maldives</h1><br>
+        <b><p style="color: #999;">Premium printing, signage, 3D fabrication, and installation services trusted by 1000+ businesses across the Maldives.</p></b><br>
+        <div class="hero-btns">
+            <a href="#" class="btn-primary" onclick="openQuote();return false">Get a Quote →</a>
+            <a href="contact.html" class="btn-ghost">Contact Us</a>
+        </div>
+        <div class="hero-stats">
+            <div><div class="hero-stat-num">1000<span>+</span></div><div class="hero-stat-label">Clients Served</div></div>
+            <div><div class="hero-stat-num">25<span>+</span></div><div class="hero-stat-label">Team Members</div></div>
+            <div><div class="hero-stat-num">7<span>+</span></div><div class="hero-stat-label">Years Experience</div></div>
+            <div><div class="hero-stat-num">5<span>K+</span></div><div class="hero-stat-label">Projects Done</div></div>
+        </div>
+    </div>
+    <div class="hero-float">
+        <img src="./image.png" alt="RC">
+        <strong>#1 in 3D Printing</strong>
+        <p>Maldives' Most Advanced Facility</p>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+    </div>
+</section>
+
+
+<!-- ========== MARQUEE ========== -->
+<section class="marquee-section section-dark">
+    <div class="marquee-track">
+        <div class="marquee-item">PRINTING <span>•</span> SIGNAGE <span>•</span> 3D PRINTING <span>•</span> CNC CUTTING <span>•</span> CANVAS <span>•</span> STICKERS <span>•</span> LABELS <span>•</span> BANNERS <span>•</span> INSTALLATION <span>•</span></div>
+        <div class="marquee-item">PRINTING <span>•</span> SIGNAGE <span>•</span> 3D PRINTING <span>•</span> CNC CUTTING <span>•</span> CANVAS <span>•</span> STICKERS <span>•</span> LABELS <span>•</span> BANNERS <span>•</span> INSTALLATION <span>•</span></div>
+    </div>
+</section>
+
+
+<!-- ========== SERVICES ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">What We Do</div>
+        <h2>Our Core <em>Services</em></h2>
+        <div class="red-line"></div>
+        <p>From small stickers to large-scale 3D installations — all handled with precision and care.</p>
+    </div>
+    <div class="svc-grid">
+        <div class="svc-card obs" onclick="location.href='services.html'">
+            <img src="https://picsum.photos/seed/canvas-art-printing-rc/500/400" alt="Canvas Printing">
+            <div class="svc-card-overlay"></div>
+            <div class="svc-card-content">
+                <div class="svc-card-tag">Printing</div>
+                <h3>Canvas Printing</h3>
+                <p>High-resolution art &amp; décor prints with vibrant color reproduction.</p>
+                <div class="svc-card-cta">Explore</div>
+            </div>
+        </div>
+        <div class="svc-card obs obs-delay-1" onclick="location.href='services.html'">
+            <img src="https://picsum.photos/seed/sticker-vinyl-print-rc/500/400" alt="Sticker Printing">
+            <div class="svc-card-overlay"></div>
+            <div class="svc-card-content">
+                <div class="svc-card-tag">Printing</div>
+                <h3>Sticker Printing</h3>
+                <p>Custom die-cut, vinyl, and laminated stickers for branding.</p>
+                <div class="svc-card-cta">Explore</div>
+            </div>
+        </div>
+        <div class="svc-card obs obs-delay-2" onclick="location.href='services.html'">
+            <img src="https://picsum.photos/seed/signboard-led-night-rc/500/400" alt="Signage">
+            <div class="svc-card-overlay"></div>
+            <div class="svc-card-content">
+                <div class="svc-card-tag">Signage</div>
+                <h3>Signboards &amp; Signage</h3>
+                <p>Illuminated, neon, LED, and custom signboards for businesses.</p>
+                <div class="svc-card-cta">Explore</div>
+            </div>
+        </div>
+        <div class="svc-card obs obs-delay-3" onclick="location.href='services.html'">
+            <img src="https://picsum.photos/seed/3d-print-facility-red/500/400" alt="3D Printing">
+            <div class="svc-card-overlay"></div>
+            <div class="svc-card-content">
+                <div class="svc-card-tag" style="background:rgba(229,57,53,.4)">Flagship</div>
+                <h3>3D Printing</h3>
+                <p>Large-scale 3D printing — the most advanced facility in Maldives.</p>
+                <div class="svc-card-cta" style="color:var(--red)">Explore</div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:32px" class="obs">
+        <a href="services.html" class="btn-primary" style="background:var(--dark);box-shadow:0 6px 20px rgba(0,0,0,.15)">View All Services →</a>
+    </div>
+</section>
+
+
+<!-- ========== SHOWCASE ========== -->
+<section class="section-gray">
+    <div class="section-header obs">
+        <div class="label">Our Work</div>
+        <h2>Recent <em>Projects</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="showcase-grid obs">
+        <div class="showcase-item"><img src="https://picsum.photos/seed/showcase-signboard-big/600/700" alt="Signboard Project" style="height:100%"></div>
+        <div class="showcase-item"><img src="https://picsum.photos/seed/showcase-banner-red/600/340" alt="Banner"></div>
+        <div class="showcase-item"><img src="https://picsum.photos/seed/showcase-3d-model-white/600/340" alt="3D Model"></div>
+        <div class="showcase-item"><img src="https://picsum.photos/seed/showcase-sticker-brand/600/340" alt="Stickers"></div>
+        <div class="showcase-item"><img src="https://picsum.photos/seed/showcase-installation-outdoor/600/340" alt="Installation"></div>
+    </div>
+    <div style="text-align:center;margin-top:28px" class="obs">
+        <a href="portfolio.html" class="btn-primary" style="background:var(--dark);box-shadow:0 6px 20px rgba(0,0,0,.15)">View Full Portfolio →</a>
+    </div>
+</section>
+
+
+<!-- ========== TRUST / STATS + TESTIMONIALS ========== -->
+<section class="section section-dark">
+    <div class="section-header obs">
+        <div class="label" style="color:#FF8A80">Trusted by 1000+ Clients</div>
+        <h2 style="color:#fff">What Our Clients <em style="color:var(--red)">Say</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="trust-grid obs" style="margin-bottom:48px">
+        <div class="trust-card"><div class="trust-num">1000<span>+</span></div><div class="trust-label">Clients</div></div>
+        <div class="trust-card"><div class="trust-num">25<span>+</span></div><div class="trust-label">Team</div></div>
+        <div class="trust-card"><div class="trust-num">5000<span>+</span></div><div class="trust-label">Projects</div></div>
+        <div class="trust-card"><div class="trust-num">7<span>+</span></div><div class="trust-label">Years</div></div>
+    </div>
+    <div class="test-grid">
+        <div class="test-card obs">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"Outstanding quality and incredibly fast turnaround. They handled our entire resort signage project from design to installation. The 3D elements were stunning."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/avatar-man1/80/80" alt="Ahmed" class="test-avatar">
+                <div><div class="test-name">Ahmed Hassan</div><div class="test-role">Resort Manager</div></div>
+            </div>
+        </div>
+        <div class="test-card obs obs-delay-1">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"Working with Red Creative for 4+ years. Their consistency in quality and ability to handle large-scale campaigns under tight deadlines is unmatched."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/avatar-woman1/80/80" alt="Fathimath" class="test-avatar">
+                <div><div class="test-name">Fathimath Mohamed</div><div class="test-role">Marketing Director</div></div>
+            </div>
+        </div>
+        <div class="test-card obs obs-delay-2">
+            <div class="test-stars">★★★★★</div>
+            <p class="test-text">"Their 3D printing is a game-changer. Custom prototypes delivered beyond expectations. Truly the most professional team in Maldives."</p>
+            <div class="test-author">
+                <img src="https://picsum.photos/seed/avatar-man2/80/80" alt="Ibrahim" class="test-avatar">
+                <div><div class="test-name">Ibrahim Rasheed</div><div class="test-role">CEO, Tech Startup</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== WHY CHOOSE US ========== -->
+<section class="section">
+    <div class="section-header obs">
+        <div class="label">Why Red Creative</div>
+        <h2>What Sets Us <em>Apart</em></h2>
+        <div class="red-line"></div>
+    </div>
+    <div class="why-grid obs">
+        <div class="why-card">
+            <img src="https://picsum.photos/seed/why-3dprinter-closeup/600/400" alt="3D Printing">
+            <div class="why-card-over"></div>
+            <div class="why-card-content">
+                <div class="why-card-tag">Advanced</div>
+                <h3>Largest 3D Printing</h3>
+                <p>The most advanced facility in Maldives</p>
+            </div>
+        </div>
+        <div class="why-card">
+            <img src="https://picsum.photos/seed/why-complete-process/600/400" alt="Complete Solutions">
+            <div class="why-card-over"></div>
+            <div class="why-card-content">
+                <div class="why-card-tag">End-to-End</div>
+                <h3>Complete Solutions</h3>
+                <p>Design → Print → Install → Deliver</p>
+            </div>
+        </div>
+        <div class="why-card why-card-wide">
+            <img src="https://picsum.photos/seed/why-fast-delivery-boat/1200/300" alt="Fast Delivery">
+            <div class="why-card-over"></div>
+            <div class="why-card-content">
+                <div class="why-card-tag">Reliable</div>
+                <h3>Fast &amp; Island-Wide Delivery</h3>
+                <p>Quick turnaround with delivery across the Maldives</p>
+            </div>
+            <div class="why-badge">
+                <div class="num">24h</div>
+                <div class="lbl">Quote Response</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <h2>Ready to Start Your Project?</h2>
+    <p>Get a free, no-obligation quote within 24 hours. Choose how you'd like us to respond — WhatsApp, Viber, or Email.</p>
+    <a href="#" class="btn-white" onclick="openQuote();return false">Get a Free Quote →</a>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo"><img src="images/logo.png" alt="RC"><span>Red Creative</span></div>
+            <p>The leading printing and signage solutions provider in the Maldives since 2018. Trusted by 1000+ clients.</p>
+        </div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Canvas Printing</a></li><li><a href="services.html">Sticker &amp; Labels</a></li><li><a href="services.html">Signboards</a></li><li><a href="services.html">3D Printing</a></li><li><a href="services.html">Installation</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li><li><a href="#" onclick="openQuote();return false">Get a Quote</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Red Creative Maldives. All rights reserved.</p>
+        <div class="footer-social"><a href="#" title="Instagram">📷</a><a href="#" title="Facebook">📘</a></div>
+    </div>
+</footer>
+
+
+<!-- ========== QUOTE MODAL ========== -->
+<div id="qModal">
+    <div id="qModalBg" onclick="closeQuote()"></div>
+    <div id="qModalBox">
+        <button class="q-close" onclick="closeQuote()">✕</button>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Request a Quote</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.5">We'll respond within 24 hours via your preferred platform.</p>
+        <form id="quoteForm" onsubmit="handleQuote(event)">
+            <div class="qf-row two">
+                <div><label>Name *</label><input type="text" id="qName" required placeholder="Your name"></div>
+                <div><label>Phone</label><input type="tel" id="qPhone" placeholder="+960 XXXX XXXX"></div>
+            </div>
+            <div class="qf-row"><label>Email</label><input type="email" id="qEmail" placeholder="your@email.com"></div>
+            <div class="qf-row"><label>Service *</label>
+                <select id="qService" required>
+                    <option value="" disabled selected>Select service</option>
+                    <option>Canvas Printing</option>
+                    <option>Sticker Printing</option>
+                    <option>Label Printing</option>
+                    <option>Poster & Leaflet Printing</option>
+                    <option>CNC Cutting</option>
+                    <option>Signboards & Signage</option>
+                    <option>Election Campaign Materials</option>
+                    <option>3D Printing</option>
+                    <option>Awards & Custom Fabrication</option>
+                    <option>On-site Installation</option>
+                    <option>Island-wide Delivery</option>
+                </select>
+            </div>
+            <div class="qf-row"><label>Details *</label><textarea id="qDetails" required placeholder="Describe your project — quantity, size, design, timeline..." style="height:90px"></textarea></div>
+
+            <!-- Platform Selector -->
+            <label class="platform-label">How should we reply? *</label>
+            <div class="platform-grid">
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="whatsapp" checked>
+                    <div class="platform-option-card">
+                        <div class="p-icon wa">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </div>
+                        <div class="p-name">WhatsApp</div>
+                        <div class="p-desc">Instant reply</div>
+                    </div>
+                </label>
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="viber">
+                    <div class="platform-option-card">
+                        <div class="p-icon vb">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.07 12.85c-.18.18-.43.28-.7.28s-.52-.1-.71-.29L7.04 9.71a.996.996 0 111.41-1.41l2.32 2.32 5.15-5.15a.996.996 0 111.41 1.41l-5.86 5.86a.99.99 0 01-.4.11z"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        </div>
+                        <div class="p-name">Viber</div>
+                        <div class="p-desc">Chat &amp; calls</div>
+                    </div>
+                </label>
+                <label class="platform-option">
+                    <input type="radio" name="platform" value="email">
+                    <div class="platform-option-card">
+                        <div class="p-icon em">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="p-name">Email</div>
+                        <div class="p-desc">Formal reply</div>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Dynamic submit button text -->
+            <button type="submit" class="qf-submit" id="qSubmitBtn">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span id="qSubmitText">Send via WhatsApp</span>
+            </button>
+            <p class="qf-note" id="qSubmitNote">Opens WhatsApp with your pre-filled quote request.</p>
+        </form>
+    </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/960XXXXXXXX?text=Hi%20Red%20Creative%2C%20I%27d%20like%20to%20inquire%20about%20your%20printing%20services." target="_blank" class="wa-float" title="Chat on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+<script>
+// ===== PRELOADER =====
+(function(){
+    const w='RED CREATI',el=document.getElementById('preName');
+    w.split('').forEach((c,i)=>{
+        const s=document.createElement('span');
+        s.className='pre-char'+(c===' '?' space':'');
+        s.textContent=c===' '?'':c;
+        s.style.animationDelay=(0.6+i*0.09)+'s';
+        el.appendChild(s);
+    });
+    setTimeout(()=>document.getElementById('preloader').classList.add('done'),3200);
+})();
+
+// ===== NAV SCROLL =====
+const nav=document.getElementById('nav'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',scrollY>60);
+    btt.classList.toggle('show',scrollY>500);
+});
+
+// ===== MOBILE MENU =====
+const mobBtn=document.getElementById('mobBtn');
+function toggleMob(){
+    document.getElementById('mobMenu').classList.add('open');
+    document.body.style.overflow='hidden';
+    mobBtn.classList.add('active');
+}
+function closeMob(){
+    document.getElementById('mobMenu').classList.remove('open');
+    document.body.style.overflow='';
+    mobBtn.classList.remove('active');
+}
+
+// ===== QUOTE MODAL =====
+function openQuote(svc){
+    document.getElementById('qModal').classList.add('open');
+    document.body.style.overflow='hidden';
+    if(svc){const s=document.getElementById('qService');for(let o of s.options)if(o.text===svc){s.value=o.value;break}}
+}
+function closeQuote(){
+    document.getElementById('qModal').classList.remove('open');
+    document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuote()});
+
+// ===== DYNAMIC SUBMIT BUTTON =====
+const platformRadios=document.querySelectorAll('input[name="platform"]');
+const submitText=document.getElementById('qSubmitText');
+const submitNote=document.getElementById('qSubmitNote');
+const submitBtn=document.getElementById('qSubmitBtn');
+
+const platformConfig={
+    whatsapp:{
+        text:'Send via WhatsApp',
+        note:'Opens WhatsApp with your pre-filled quote request.',
+        color:'#25D366',
+        darkColor:'#128C7E'
+    },
+    viber:{
+        text:'Send via Viber',
+        note:'Opens Viber with your pre-filled quote request.',
+        color:'#7360F2',
+        darkColor:'#5B47C7'
+    },
+    email:{
+        text:'Send via Email',
+        note:'Opens your email app with a pre-filled quote request.',
+        color:'#F57C00',
+        darkColor:'#E65100'
+    }
+};
+
+function updateSubmitBtn(){
+    const val=document.querySelector('input[name="platform"]:checked').value;
+    const cfg=platformConfig[val];
+    submitText.textContent=cfg.text;
+    submitNote.textContent=cfg.note;
+    submitBtn.style.background=cfg.color;
+    submitBtn.style.boxShadow='0 8px 24px '+cfg.color+'40';
+    submitBtn.onmouseenter=()=>{submitBtn.style.background=cfg.darkColor;submitBtn.style.transform='translateY(-1px)'};
+    submitBtn.onmouseleave=()=>{submitBtn.style.background=cfg.color;submitBtn.style.transform='translateY(0)'};
+}
+platformRadios.forEach(r=>r.addEventListener('change',updateSubmitBtn));
+updateSubmitBtn(); // init
+
+// ===== HANDLE QUOTE SUBMIT =====
+function handleQuote(e){
+    e.preventDefault();
+    const n=document.getElementById('qName').value;
+    const s=document.getElementById('qService').value;
+    const d=document.getElementById('qDetails').value;
+    const p=document.getElementById('qPhone').value;
+    const em=document.getElementById('qEmail').value;
+    const platform=document.querySelector('input[name="platform"]:checked').value;
+
+    const body=`📋 *Quote Request — Red Creative*%0A%0A👤 Name: ${n}%0A📞 Phone: ${p||'N/A'}%0A✉️ Email: ${em||'N/A'}%0A🔧 Service: ${s}%0A📝 Details: ${d}`;
+    const bodyPlain=`Quote Request — Red Creative\n\nName: ${n}\nPhone: ${p||'N/A'}\nEmail: ${em||'N/A'}\nService: ${s}\nDetails: ${d}`;
+
+    if(platform==='whatsapp'){
+        window.open('https://wa.me/960XXXXXXXX?text='+body,'_blank');
+    } else if(platform==='viber'){
+        window.open('viber://chat?number=960XXXXXXXX&text='+encodeURIComponent(bodyPlain.replace(/[*📋👤📞✉️🔧📝]/g,'')),'_blank');
+    } else if(platform==='email'){
+        window.location.href='mailto:info@redcreative.mv?subject='+encodeURIComponent('Quote Request — '+s)+'&body='+encodeURIComponent(bodyPlain);
+    }
+    closeQuote();
+}
+
+// ===== INTERSECTION OBSERVER =====
+const obs=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target)}});
+},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.obs').forEach(el=>obs.observe(el));
+
+// ===== PARALLAX HERO =====
+window.addEventListener('scroll',()=>{
+    const hero=document.querySelector('.hero-content');
+    if(hero&&scrollY<window.innerHeight){
+        hero.style.transform=`translateY(${scrollY*0.15}px)`;
+        hero.style.opacity=1-(scrollY/(window.innerHeight*0.8));
+    }
+});
+</script>
+</body>
+</html>
